@@ -24,7 +24,7 @@
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <div class="d-flex justify-end">
-            <v-btn color="light-green">login</v-btn>
+            <v-btn @click.prevent="login" color="light-green">login</v-btn>
           </div>
         </v-col>
       </v-container>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "Login",
   data() {
@@ -51,5 +53,26 @@ export default {
       },
     };
   },
+  methods: {
+    login: function () {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/accounts/api-token-auth/',
+        data: {
+          email: this.email,
+          password: this.password,
+        }
+      })
+        .then(res => {
+          console.log(res)
+          localStorage.setItem('jwt', res.data.token)
+          this.$emit('login')
+          this.$router.push({ name: 'Home' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
 };
 </script>

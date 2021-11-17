@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>This is Signin page</h1>
+    <h1>This is Signup page</h1>
     <v-form>
       <v-container fluid>
         <v-col>
@@ -13,7 +13,7 @@
 
           <!-- name -->
           <v-text-field
-            v-model="username"
+            v-model="nickname"
             :rules="[rules.nameRequired]"
             label="name"
           ></v-text-field>
@@ -44,7 +44,7 @@
             @click:append="showConfirm = !showConfirm"
           ></v-text-field>
           <div class="d-flex justify-end">
-            <v-btn color="light-green">Signin</v-btn>
+            <v-btn @click.prevent="signup" color="light-green">Signup</v-btn>
           </div>
         </v-col>
       </v-container>
@@ -53,10 +53,11 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "Login",
+  name: "Signup",
   data() {
-    return {
+    return { 
       email: "",
       password: "",
       passwordConfirm: "",
@@ -82,5 +83,25 @@ export default {
       },
     };
   },
+  methods: {
+    signup: function () {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/accounts/signup/',
+        data: {
+          email : this.email,
+          nickname : this.nickname,
+          password : this.password,
+          passwordConfirm : this.passwordConfirm,
+        },
+      })
+        .then(() => {
+          this.$router.push({ name: 'Login'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }  
 };
 </script>
