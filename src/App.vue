@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app color="green" dark>
       <div class="d-flex align-center">client</div>
-
+      <Home />
       <v-spacer></v-spacer>
       <router-link to="/accounts/login">login</router-link> |
       <router-link to="/accounts/signin">signin</router-link>
@@ -14,9 +14,13 @@
 </template>
 
 <script>
+import Home from "../src/views/Home.vue";
+
 export default {
   name: "App",
-  component: {},
+  component: {
+    Home,
+  },
   data: () => ({
     //
   }),
