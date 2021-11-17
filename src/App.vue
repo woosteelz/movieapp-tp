@@ -4,8 +4,8 @@
       <div class="d-flex align-center">client</div>
       <Home />
       <v-spacer></v-spacer>
-      <router-link to="/accounts/login">login</router-link> |
-      <router-link to="/accounts/signin">signin</router-link>
+      <router-link to="/accounts/login/">login</router-link> |
+      <router-link to="/accounts/signup/">signup</router-link>
     </v-app-bar>
     <v-main>
       <router-view />
