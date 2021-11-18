@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-alert v-model="loginSuccess" type="success"></v-alert>
     <h1>This is login page</h1>
     <v-form>
       <v-container fluid>
@@ -39,6 +40,7 @@ export default {
   name: "Login",
   data() {
     return {
+      loginSuccess: false,
       email: "",
       password: "",
       showPassword: false,

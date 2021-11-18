@@ -1,15 +1,18 @@
 <template>
-  <v-app>
-    <v-app-bar app color="green" dark>
+  <v-app id="all">
+    <v-app-bar app color="black" dark>
       <div class="d-flex align-center">client</div>
       <Home />
       <v-spacer></v-spacer>
       <router-link to="/accounts/login/">login</router-link> |
       <router-link to="/accounts/signup/">signup</router-link> |
-      <router-link to="/community">Community</router-link>
+      <router-link to="/community">Community</router-link> |
+      <router-link to="/movies">Movies</router-link>
     </v-app-bar>
     <v-main>
-      <router-view />
+      <v-container>
+        <router-view />
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -27,3 +30,8 @@ export default {
   }),
 };
 </script>
+<style>
+#all {
+  background: linear-gradient(pink, blue);
+}
+</style>

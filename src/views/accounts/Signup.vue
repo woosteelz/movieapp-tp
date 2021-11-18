@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <!-- 회원가입 완료 메시지 출력 -->
+    <v-alert v-model="signupSuccess" type="success"> 회원가입 완료! </v-alert>
     <h1>This is Signup page</h1>
     <v-form>
       <v-container fluid>
@@ -58,6 +60,7 @@ export default {
   name: "Signup",
   data() {
     return {
+      signupSuccess: false,
       email: "",
       password: "",
       passwordConfirm: "",
@@ -101,6 +104,7 @@ export default {
       //   .catch(err => {
       //     console.log(err)
       //   })
+      this.signupSuccess = true;
     },
   },
 };
