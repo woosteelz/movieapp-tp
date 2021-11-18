@@ -5,7 +5,8 @@
       <Home />
       <v-spacer></v-spacer>
       <router-link to="/accounts/login/">login</router-link> |
-      <router-link to="/accounts/signup/">signup</router-link>
+      <router-link to="/accounts/signup/">signup</router-link> |
+      <router-link to="/community">Community</router-link>
     </v-app-bar>
     <v-main>
       <router-view />
