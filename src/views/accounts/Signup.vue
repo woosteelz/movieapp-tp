@@ -55,7 +55,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   name: "Signup",
   data() {
@@ -88,22 +88,22 @@ export default {
   },
   methods: {
     signup: function () {
-      // axios({
-      //   method: 'post',
-      //   url: 'http://127.0.0.1:8000/accounts/signup/',
-      //   data: {
-      //     email : this.email,
-      //     nickname : this.nickname,
-      //     password : this.password,
-      //     passwordConfirm : this.passwordConfirm,
-      //   },
-      // })
-      //   .then(() => {
-      //     this.$router.push({ name: 'Login'})
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/accounts/signup/',
+        data: {
+          email : this.email,
+          nickname : this.nickname,
+          password : this.password,
+          passwordConfirm : this.passwordConfirm,
+        },
+      })
+        .then(() => {
+          this.$router.push({ name: 'Login'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
       this.signupSuccess = true;
     },
   },

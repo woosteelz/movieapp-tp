@@ -1,6 +1,6 @@
 <template>
   <v-img
-    :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
+    :src="movie.poster_path"
     :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
     aspect-ratio="0.8"
     class="grey lighten-2"
@@ -17,8 +17,8 @@
       </v-row>
     </template>
     <v-overlay :absolute="absolute" :value="overlay">
-      {{ n }}
-      <v-btn color="success" @click="showDetail"> 제목 </v-btn>
+      {{ movie.poster_path }}
+      <v-btn color="success" @click="showDetail"> {{ movie.title }} </v-btn>
     </v-overlay>
   </v-img>
 </template>
@@ -34,7 +34,9 @@ export default {
   },
   components: {},
   props: {
-    n: Number,
+    movie: {
+      type: Object,
+    }
   },
   methods: {
     showDetail() {
