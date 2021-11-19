@@ -2,9 +2,11 @@
   <v-img
     :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
     :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
-    aspect-ratio="1"
+    aspect-ratio="0.8"
     class="grey lighten-2"
-    @click="overlay = !overlay"
+    @mouseover="overlay = true"
+    @mouseleave="overlay = false"
+    id="movie--detail-transfer"
   >
     <template v-slot:placeholder>
       <v-row class="fill-height ma-0" align="center" justify="center">
@@ -15,14 +17,15 @@
       </v-row>
     </template>
     <v-overlay :absolute="absolute" :value="overlay">
-      <v-btn color="success" @click="overlay = false"> Hide Overlay </v-btn>
+      {{ n }}
+      <v-btn color="success" @click="showDetail"> 제목 </v-btn>
     </v-overlay>
   </v-img>
 </template>
 
 <script>
 export default {
-  name: "MovieDetail",
+  // name: "MovieDetail",
   data() {
     return {
       overlay: false,
@@ -33,5 +36,18 @@ export default {
   props: {
     n: Number,
   },
+  methods: {
+    showDetail() {
+      this.$router.push({
+        name: "MovieDetail",
+      });
+    },
+  },
 };
 </script>
+
+<style scoped>
+#movie--detail-transfer:hover {
+  transform: translate(0px, -3px);
+}
+</style>

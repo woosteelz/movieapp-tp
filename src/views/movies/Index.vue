@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="white--text">This is Movie main</h1>
+    <h1 class="">This is Movie main</h1>
     <v-row>
       <v-col
         v-for="n in 100"
@@ -21,10 +21,7 @@ import MovieDetail from "@/components/MovieDetail.vue";
 export default {
   name: "Movies",
   data() {
-    return {
-      absolute: true,
-      overlay: false,
-    };
+    return {};
   },
   components: {
     MovieDetail,

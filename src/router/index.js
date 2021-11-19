@@ -5,6 +5,7 @@ import Login from '@/views/accounts/Login.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import Community from '@/views/community/Index.vue'
 import Movies from '@/views/movies/Index.vue'
+import MovieDetail from '@/views/movies/MovieDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/movies',
     name: 'Movies',
     component: Movies
+  },
+  {
+    path: '/movies/detail',
+    name: 'MovieDetail',
+    component: MovieDetail
   },
 ]
 
