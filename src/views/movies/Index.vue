@@ -3,18 +3,14 @@
     <h1 class="">This is Movie main</h1>
     <v-row>
       <v-col
-        v-for="n in 20"
+        v-for="n in movies.length"
         :key="n"
         class="d-flex child-flex"
         cols="12"
         md="4"
         sm="6"
       >
-        <MovieDetail
-          v-for="movie in movies"
-          :key="movie.movie_id"
-          :movie="movie"
-        />
+        <MovieDetail :movie="movies[n]" />
       </v-col>
     </v-row>
   </v-container>

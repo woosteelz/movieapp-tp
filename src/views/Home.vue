@@ -2,7 +2,9 @@
   <div id="main">
     <div>
       <div class="ma-3">
-        <v-btn width="80%" x-large color="primary">영화추천</v-btn>
+        <v-btn @click="loadMovies" width="80%" x-large color="primary"
+          >영화추천</v-btn
+        >
       </div>
       <div class="ma-3">
         <v-btn width="80%" x-large color="primary">로그인</v-btn>
