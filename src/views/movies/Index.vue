@@ -3,7 +3,7 @@
     <h1 class="">This is Movie main</h1>
     <v-row>
       <v-col
-        v-for="n in movies.length()"
+        v-for="n in 20"
         :key="n"
         class="d-flex child-flex"
         cols="12"
@@ -11,7 +11,7 @@
         sm="6"
       >
   
-        <MovieDetail v-for="movie in movies" :key="movie.pk" :movie="movie" />
+        <MovieDetail v-for="movie in movies" :key="movie.movie_id" :movie="movie" />
       </v-col>
     </v-row>
   </v-container>
@@ -24,13 +24,8 @@ export default {
   name: "Movies",
   data() {
     return {
-      // movies: null,
+      movies: null,
     };
-  },
-  props: {
-    movies: {
-      type : Object
-    }
   },
   components: {
     MovieDetail,
@@ -46,7 +41,7 @@ export default {
     getMovies : function () {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/movies/get_movies/',
+        url: 'http://127.0.0.1:8000/movies/',
         headers: this.setToken()
       })
         .then(res => {
@@ -58,5 +53,12 @@ export default {
         })
     }
   },
+  created: function () {
+    if (localStorage.getItem('jwt')) {
+      this.getMovies()
+    } else {
+      this.$router.push({name: 'Login'})
+    }
+  } 
 };
 </script>

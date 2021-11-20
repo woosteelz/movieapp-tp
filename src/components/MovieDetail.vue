@@ -1,7 +1,7 @@
 <template>
   <v-img
     :src="movie.poster_path"
-    :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+    :lazy-src="movie.poster_path" 
     aspect-ratio="0.8"
     class="grey lighten-2"
     @mouseover="overlay = true"
@@ -10,10 +10,10 @@
   >
     <template v-slot:placeholder>
       <v-row class="fill-height ma-0" align="center" justify="center">
-        <v-progress-circular
+        <!-- <v-progress-circular
           indeterminate
           color="grey lighten-5"
-        ></v-progress-circular>
+        ></v-progress-circular> -->
       </v-row>
     </template>
     <v-overlay :absolute="absolute" :value="overlay">
@@ -25,18 +25,19 @@
 
 <script>
 export default {
-  // name: "MovieDetail",
+  name: "MovieDetail",
   data() {
     return {
       overlay: false,
       absolute: true,
+      title: '',
+      content: '',
+      poster_path: '',
     };
   },
   components: {},
   props: {
-    movie: {
-      type: Object,
-    }
+    movie: Object,
   },
   methods: {
     showDetail() {

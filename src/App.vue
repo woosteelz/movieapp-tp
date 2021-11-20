@@ -36,7 +36,7 @@
 
 <script>
 import Home from "../src/views/Home.vue";
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: "App",
@@ -56,20 +56,6 @@ export default {
       }
       return config
     },
-    getMovies : function () {
-      axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8000/movies/get_movies/',
-        headers: this.setToken()
-      })
-        .then(res => {
-          console.log(res)
-          
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   },
 };
 </script>

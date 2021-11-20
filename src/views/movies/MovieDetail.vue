@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data() {
     return {
@@ -49,27 +49,7 @@ export default {
     }
   },
   methods: {
-    setToken: function () {
-      const token = localStorage.getItem('jwt')
-      const config = {
-        Authorization: `JWT ${token}`
-      }
-      return config
-    },
-    getMovies : function () {
-      axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8000/movies/get_movies/',
-        headers: this.setToken()
-      })
-        .then(res => {
-          console.log(res)
-          this.movies = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    
   },
 };
 </script>

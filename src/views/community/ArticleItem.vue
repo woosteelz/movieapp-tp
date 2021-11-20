@@ -5,10 +5,11 @@
       <h3>{{ article.title }}</h3>
     </v-card-title>
 
-    <v-card-subtitle class="d-flex justify-end"> 작성시간 </v-card-subtitle>
+    <v-card-subtitle class="d-flex justify-end"> 작성시간 {{ article.created_at }}</v-card-subtitle>
     <v-btn class="ma-2" text icon color="blue lighten-2">
-      <v-icon>mdi-thumb-up</v-icon>
+      <v-icon @click="like(article)">mdi-thumb-up</v-icon>
     </v-btn>
+    <h3></h3>
 
     <v-card-actions>
       <v-btn @click="updateArticle" color="green lighten-2" text> 수정하기 </v-btn>
@@ -129,7 +130,28 @@ export default {
           console.log(err)
         })
     },
-    
+    like: function (article) {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/community/like/${article.id}/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          console.log(res)
+          //const likeCount = res.data.like_count
+          //const liked = res.data.liked
+          //console.log('liked')
+
+          //const likeBtn = document.querySelector(`#likeBtn-${article.id}`)
+          // likeBtn.value = liked ? '좋아요 취소' : '좋아요'
+
+          //const likeCnt = document.querySelector(`#likeCnt-${article.id}`)
+          //likeCnt.innerText = `좋아요 ${likeCount}개`
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
 
   created: function () {
