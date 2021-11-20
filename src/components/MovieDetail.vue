@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{ movie.poster_path }}
     <v-img
       :src="movie.poster_path"
       :lazy-src="movie.poster_path"
