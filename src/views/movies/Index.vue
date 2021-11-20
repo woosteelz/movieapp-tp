@@ -24,8 +24,13 @@ export default {
   name: "Movies",
   data() {
     return {
-      movies: null,
+      // movies: null,
     };
+  },
+  props: {
+    movies: {
+      type : Object
+    }
   },
   components: {
     MovieDetail,

@@ -28,24 +28,22 @@
           <v-divider></v-divider>
           <h3 v-for="comment in comments" :key="comment.pk"> {{ comment.content }}  <v-btn @click="deleteComment(comment)">X</v-btn></h3>
           
-          <!-- v-model="valid" -->
-          <v-form ref="form"  lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               @keyup.enter.prevent="createComment(article)"
               v-model="comment_content"
               :counter="10"
               label="Name"
               required
+              :rules="nameRules" 
             ></v-text-field>
-              <!-- :rules="nameRules" -->
 
-              <!-- :disabled="!valid" -->
             <v-btn
+              :disabled="!valid"
               color="success"
               class="mr-4"
-              @click.prevent="createComment(article)"
+              @click="validate"
             >
-              <!-- @click="validate" -->
               Validate
             </v-btn>
           </v-form>
