@@ -1,7 +1,9 @@
 <template>
+  <div>
+  <h3>{{ movie.overview }}</h3>
   <v-img
     :src="movie.poster_path"
-    :lazy-src="movie.poster_path" 
+    :lazy-src="movie.poster_path"
     aspect-ratio="0.8"
     class="grey lighten-2"
     @mouseover="overlay = true"
@@ -17,10 +19,11 @@
       </v-row>
     </template>
     <v-overlay :absolute="absolute" :value="overlay">
-      {{ movie.poster_path }}
+      <!-- {{ movie.poster_path }} -->
       <v-btn color="success" @click="showDetail"> {{ movie.title }} </v-btn>
     </v-overlay>
   </v-img>
+  </div>
 </template>
 
 <script>
@@ -31,7 +34,6 @@ export default {
       overlay: false,
       absolute: true,
       title: '',
-      content: '',
       poster_path: '',
     };
   },
