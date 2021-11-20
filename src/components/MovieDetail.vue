@@ -1,55 +1,61 @@
 <template>
-  <v-img
-    :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-    :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
-    aspect-ratio="0.8"
-    class="grey lighten-2"
-    @mouseover="overlay = true"
-    @mouseleave="overlay = false"
-    id="movie--detail-transfer"
-  >
-    <template v-slot:placeholder>
-      <v-row class="fill-height ma-0" align="center" justify="center">
-        <v-progress-circular
-          indeterminate
-          color="grey lighten-5"
-        ></v-progress-circular>
-      </v-row>
-    </template>
-    <v-fade-transition style="width: 100%">
-      <v-overlay :absolute="absolute" :value="overlay" style="display: block">
-        <div style="height: 100%; width: 100%">
-          <div
-            class="text-h5 text-center"
-            style="
-              width: 100%;
-              overflow-wrap: break-word;
-              word-wrap: break-word;
-            "
-          >
-            Venomsdadasdadsadasdasdasdsaddasd
+  <v-container>
+    {{ movie.poster_path }}
+    <v-img
+      :src="movie.poster_path"
+      :lazy-src="movie.poster_path"
+      aspect-ratio="0.8"
+      class="grey lighten-2"
+      @mouseover="overlay = true"
+      @mouseleave="overlay = false"
+      id="movie--detail-transfer"
+    >
+      <template v-slot:placeholder>
+        <v-row class="fill-height ma-0" align="center" justify="center">
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-5"
+          ></v-progress-circular>
+        </v-row>
+      </template>
+      <v-fade-transition style="width: 100%">
+        <v-overlay :absolute="absolute" :value="overlay" style="display: block">
+          <div style="height: 100%; width: 100%">
+            <div
+              class="text-h5 text-center"
+              style="
+                width: 100%;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+              "
+            >
+              Venomsdadasdadsadasdasdasdsaddasd
+            </div>
+            <div class="text-center">
+              <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
+            </div>
           </div>
-          <div class="text-center">
-            <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
-          </div>
-        </div>
-      </v-overlay>
-    </v-fade-transition>
-  </v-img>
+        </v-overlay>
+      </v-fade-transition>
+    </v-img>
+  </v-container>
 </template>
 
 <script>
 export default {
-  // name: "MovieDetail",
+  name: "MovieDetail",
   data() {
     return {
       overlay: false,
       absolute: true,
+      title: "",
+      content: "",
+      poster_path: "",
     };
   },
   components: {},
   props: {
-    n: Number,
+    movie: Object,
   },
   methods: {
     showDetail() {

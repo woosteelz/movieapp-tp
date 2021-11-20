@@ -12,10 +12,39 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Home",
 
   components: {},
+
+  data: () => {
+    return {
+      movies: null,
+    };
+  },
+  methods: {
+    setToken: function () {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        Authorization: `JWT ${token}`,
+      };
+      return config;
+    },
+    loadMovies: function () {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/movies/load_movies/",
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

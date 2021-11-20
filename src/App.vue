@@ -36,17 +36,26 @@
 
 <script>
 import Home from "../src/views/Home.vue";
+// import axios from 'axios'
 
 export default {
   name: "App",
   component: {
     Home,
   },
-  data: () => ({
-    //
-  }),
+  data: () => {
+    return {
+      movies: null
+    }
+  },
   methods: {
-    getMovie() {},
+    setToken: function () {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
   },
 };
 </script>
