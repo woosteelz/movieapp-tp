@@ -16,10 +16,25 @@
         ></v-progress-circular>
       </v-row>
     </template>
-    <v-overlay :absolute="absolute" :value="overlay">
-      {{ n }}
-      <v-btn color="success" @click="showDetail"> 제목 </v-btn>
-    </v-overlay>
+    <v-fade-transition style="width: 100%">
+      <v-overlay :absolute="absolute" :value="overlay" style="display: block">
+        <div style="height: 100%; width: 100%">
+          <div
+            class="text-h5 text-center"
+            style="
+              width: 100%;
+              overflow-wrap: break-word;
+              word-wrap: break-word;
+            "
+          >
+            Venomsdadasdadsadasdasdasdsaddasd
+          </div>
+          <div class="text-center">
+            <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
+          </div>
+        </div>
+      </v-overlay>
+    </v-fade-transition>
   </v-img>
 </template>
 

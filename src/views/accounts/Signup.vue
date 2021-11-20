@@ -46,7 +46,7 @@
             @click:append="showConfirm = !showConfirm"
           ></v-text-field>
           <div class="d-flex justify-end">
-            <v-btn @click.prevent="signup" color="light-green">Signup</v-btn>
+            <v-btn @click.prevent="signup" color="primary">Signup</v-btn>
           </div>
         </v-col>
       </v-container>

@@ -25,7 +25,7 @@
             @click:append="showPassword = !showPassword"
           ></v-text-field>
           <div class="d-flex justify-end">
-            <v-btn @click.prevent="login" color="light-green">login</v-btn>
+            <v-btn @click.prevent="login" color="primary">login</v-btn>
           </div>
         </v-col>
       </v-container>
