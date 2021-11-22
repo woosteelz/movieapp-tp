@@ -32,9 +32,7 @@
       >
     </v-app-bar>
     <v-main>
-      <v-container style="height: 100%">
-        <router-view />
-      </v-container>
+      <router-view />
     </v-main>
   </v-app>
 </template>

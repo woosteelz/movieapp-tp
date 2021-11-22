@@ -7,6 +7,8 @@
         :key="n"
         class="d-flex child-flex"
         cols="12"
+        xl="2"
+        lg="3"
         md="4"
         sm="6"
       >

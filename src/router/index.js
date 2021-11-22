@@ -46,6 +46,7 @@ const routes = [
     name: 'MovieDetail',
     component: MovieDetail
   },
+
 ]
 
 const router = new VueRouter({

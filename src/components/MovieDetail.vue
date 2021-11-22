@@ -3,7 +3,7 @@
     <v-img
       :src="movie.poster_path"
       :lazy-src="movie.poster_path"
-      aspect-ratio="0.8"
+      aspect-ratio="0.7"
       class="grey lighten-2"
       @mouseover="overlay = true"
       @mouseleave="overlay = false"
@@ -18,7 +18,7 @@
         </v-row>
       </template>
       <v-fade-transition style="width: 100%">
-        <v-overlay :absolute="absolute" :value="overlay" style="display: block">
+        <v-overlay :absolute="absolute" :value="overlay">
           <div style="height: 100%; width: 100%">
             <div
               class="text-h5 text-center"
@@ -29,10 +29,11 @@
               "
             >
               <div>{{ movie.title }}</div>
-              <div>{{ movie.overview }}</div>
             </div>
-            <div class="text-center">
-              <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
+            <div class="text-center d-flex justify-center align-items-end">
+              <v-btn color="primary" outlined @click="showDetail">
+                상세보기
+              </v-btn>
             </div>
           </div>
         </v-overlay>
@@ -59,8 +60,10 @@ export default {
   },
   methods: {
     showDetail() {
+      // console.log(this.movie.movie_id);
       this.$router.push({
         name: "MovieDetail",
+        query: { pk: this.movie.id },
       });
     },
   },

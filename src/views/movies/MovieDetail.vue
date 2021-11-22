@@ -1,26 +1,34 @@
 <template>
-  <v-container fluid>
-    <h1>This is Movie Detail</h1>
-    <v-row justify="start">
-      <v-col cols="12" md="4"
-        ><v-img
-          max-height="1600"
-          max-width="900"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="https://image.tmdb.org/t/p/w500/1Lh9LER4xRQ3INFFi2dfS2hpRwv.jpg"
-          class="ma-1"
-        ></v-img>
-      </v-col>
-      <v-col cols="12" md="6" align="start">
-        <v-container>
-          <h2>temp</h2>
-          <v-spacer></v-spacer>
-          <h4>개봉일 : temp</h4>
-          <v-divider></v-divider>
-          temp
-        </v-container>
-      </v-col>
-      <v-col cols="12" md="2">
+  <div>
+    <v-img
+      :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`"
+      width="100%"
+      gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+    >
+      <h1 class="ma-3">{{ movie.title }}</h1>
+      <v-row>
+        <v-col cols="12">
+          <div class="ma-5" cols="4">
+            <v-img :src="movie.poster_path" width="200" height="300"></v-img>
+          </div>
+          <div></div>
+        </v-col>
+        <v-col>
+          <div>
+            <v-tabs fixed-tabs background-color="dark" dark>
+              <v-tab> overview </v-tab>
+              <v-tab> comment </v-tab>
+              <v-tab> review </v-tab>
+              <v-tab> rating </v-tab>
+            </v-tabs>
+          </div>
+        </v-col>
+      </v-row>
+    </v-img>
+  </div>
+</template>
+
+<v-col cols="12" md="4">
         <v-icon color="red" class="ma-3" v-if="like" @click="like = !like"
           >mdi-heart-outline</v-icon
         >
@@ -28,26 +36,41 @@
           >mdi-heart</v-icon
         >
       </v-col>
-    </v-row>
-  </v-container>
-</template>
-
 <script>
-// import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
       like: false,
-      title: "",
-      overview: "",
-      release_date: "",
+      movie: null,
     };
   },
-  props: {
-    // movie: {
-    //   // type: Object,
-    // },
+  props: {},
+  methods: {
+    setToken: function () {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        Authorization: `JWT ${token}`,
+      };
+      return config;
+    },
   },
-  methods: {},
+  created() {
+    console.log(this.$route.query.pk);
+    axios({
+      method: "get",
+      url: `http://127.0.0.1:8000/movies/${this.$route.query.pk}/`,
+      headers: this.setToken(),
+    })
+      .then((res) => {
+        console.log(res);
+        this.movie = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
+
+<style scoped></style>
