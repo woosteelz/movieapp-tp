@@ -6,6 +6,7 @@
       :key="article.pk"
       :article="article"
     />
+    <!-- <v-text-field v-model="select" @keyup.enter="recommend(select)"></v-text-field> -->
     <div class="text-center">
       <v-pagination
         v-model="page"
@@ -35,6 +36,7 @@
           <v-text-field
             label="Movie Title"
             v-model.trim="movie_title"
+            aria-autocomplete="on"
           ></v-text-field>
           <v-textarea label="Content" v-model.trim="content"></v-textarea>
         </v-card-text>
@@ -60,6 +62,7 @@
 <script>
 import ArticleItem from "../community/ArticleItem.vue";
 import axios from "axios";
+//import { mapActions } from 'vuex'
 
 export default {
   name: "Community",
@@ -161,10 +164,40 @@ export default {
     clickCallback: function (pageNum) {
       console.log(pageNum);
     },
+    // recommend: function (select) {
+    //   axios({
+    //     method: "post",
+    //     url: `http://127.0.0.1:8000/movies/recommend/${select}/`,
+    //     headers: this.setToken(),
+    //   })
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.recommended = res.data
+    //       console.log(this.recommended)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
-  created: function () {
+  getMovies: function () {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/movies/",
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movies = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  mounted: function () {
     if (localStorage.getItem("jwt")) {
-      this.getArticles();
+      this.getArticles()
+      this.getMovies()
     } else {
       this.$router.push({ name: "Login" });
     }

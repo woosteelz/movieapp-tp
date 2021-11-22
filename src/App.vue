@@ -22,12 +22,12 @@
         >
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
-        <router-link to="/community" class="white--text">Community</router-link>
+        <router-link to="/community" class="white--text" >Community</router-link>
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
         <router-link to="/movies" class="white--text">Movies</router-link>
       </v-btn>
-      <v-btn class="ma-1" color="white" plain @click="getMovies"
+      <v-btn class="ma-1" color="white" plain
         >getMovie</v-btn
       >
     </v-app-bar>
@@ -52,14 +52,7 @@ export default {
     };
   },
   methods: {
-    setToken: function () {
-      const token = localStorage.getItem("jwt");
-      const config = {
-        Authorization: `JWT ${token}`,
-      };
-      return config;
-    },
-  },
+  }
 };
 </script>
 <style>

@@ -27,8 +27,7 @@
         <v-card-text>
           <h3>{{ article.content }}</h3>
           <v-divider></v-divider>
-          <h3 v-for="comment in comments" :key="comment.pk"> {{ comment.content }}  <v-btn @click="deleteComment(comment)">X</v-btn></h3>
-          
+          <h3 v-for="comment in comments" :key="comment.pk"> {{ comment.content }}  <v-btn @click="deleteComment(article, comment)">X</v-btn></h3>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               @keyup.enter.prevent="createComment(article)"
@@ -37,7 +36,8 @@
               label="Name"
               required
               :rules="nameRules" 
-            ></v-text-field>
+            >
+            </v-text-field>
 
             <v-btn
               :disabled="!valid"
@@ -56,6 +56,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: "ArticleItem",
   components: {},
@@ -103,28 +104,28 @@ export default {
       if (comment.content) {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/community/comments/${article.id}/`,
+          url: `http://127.0.0.1:8000/community/comment_create/${article.id}/`,
           data: comment,
           headers: this.setToken()
         })
           .then(res => {
             console.log(res)
-            this.getComments()
+            this.getComments(article)
           })
           .catch(err => {
             console.log(err)
           })
       }
     },
-    deleteComment: function (comment) {
+    deleteComment: function (article, comment) {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/community/comment/${comment.id}/`,
+        url: `http://127.0.0.1:8000/community/comment/${article.id}/${comment.id}/`,
         headers: this.setToken()
       })
         .then(res => {
           console.log(res)
-          this.getComments()
+          this.getComments(article)
         })
         .catch(err => {
           console.log(err)
@@ -151,16 +152,15 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
+    },
   },
 
-  created: function () {
-    if (localStorage.getItem('jwt')) {
-      this.getComments()
-    } else {
-      this.$router.push({name: 'Login'})
-    }
-  }
-
+  // created: function (article) {
+  //   if (localStorage.getItem('jwt')) {
+  //     this.getComments(article)
+  //   } else {
+  //     this.$router.push({name: 'Login'})
+  //   }
+  // },
 };
 </script>
