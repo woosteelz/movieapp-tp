@@ -17,6 +17,11 @@
         >
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
+        <router-link to="/communitytemp" class="white--text"
+          >Community</router-link
+        >
+      </v-btn>
+      <v-btn class="ma-1" color="white" plain>
         <router-link to="/community" class="white--text">Community</router-link>
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
@@ -45,16 +50,16 @@ export default {
   },
   data: () => {
     return {
-      movies: null
-    }
+      movies: null,
+    };
   },
   methods: {
     setToken: function () {
-      const token = localStorage.getItem('jwt')
+      const token = localStorage.getItem("jwt");
       const config = {
-        Authorization: `JWT ${token}`
-      }
-      return config
+        Authorization: `JWT ${token}`,
+      };
+      return config;
     },
   },
 };

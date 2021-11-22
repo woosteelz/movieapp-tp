@@ -13,11 +13,11 @@
       </v-col>
       <v-col cols="12" md="6" align="start">
         <v-container>
-          <h2>{{ movie.title }}</h2>
+          <h2>temp</h2>
           <v-spacer></v-spacer>
-          <h4>개봉일 : {{ movie.release_date }}</h4>
+          <h4>개봉일 : temp</h4>
           <v-divider></v-divider>
-          {{ movie.overview }}
+          temp
         </v-container>
       </v-col>
       <v-col cols="12" md="2">
@@ -38,18 +38,16 @@ export default {
   data() {
     return {
       like: false,
-      title: '',
-      overview: '',
-      release_date: '',
+      title: "",
+      overview: "",
+      release_date: "",
     };
   },
   props: {
-    movie: {
-      type: Object,
-    }
+    // movie: {
+    //   // type: Object,
+    // },
   },
-  methods: {
-    
-  },
+  methods: {},
 };
 </script>

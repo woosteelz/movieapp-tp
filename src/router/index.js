@@ -6,6 +6,7 @@ import Signup from '@/views/accounts/Signup.vue'
 import Community from '@/views/community/Index.vue'
 import Movies from '@/views/movies/Index.vue'
 import MovieDetail from '@/views/movies/MovieDetail.vue'
+import temp from '@/views/community/temp.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community
+  },
+  {
+    path: '/communitytemp',
+    name: 'Communitytemp',
+    component: temp
   },
   {
     path: '/movies',

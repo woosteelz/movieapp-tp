@@ -28,7 +28,8 @@
                 word-wrap: break-word;
               "
             >
-              Venomsdadasdadsadasdasdasdsaddasd
+              <div>{{ movie.title }}</div>
+              <div>{{ movie.overview }}</div>
             </div>
             <div class="text-center">
               <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
