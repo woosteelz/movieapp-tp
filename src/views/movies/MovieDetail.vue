@@ -44,8 +44,8 @@
     <div class="">
       <v-tabs fixed-tabs background-color="dark" dark v-model="tab">
         <v-tab> overview </v-tab>
-        <v-tab> comment </v-tab>
-        <v-tab> review </v-tab>
+        <v-tab @click="getComments(movie)"> comment </v-tab>
+        <v-tab @click="getReviewlist(movie)"> review </v-tab>
         <v-tab> casting </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
@@ -58,13 +58,67 @@
         <!-- comment tab -->
         <v-tab-item>
           <div flat height="100%" width="100%">
-            <v-card-text><h1>comment</h1></v-card-text>
+            <v-card-text><h1 v-for="comment in comments" :key="comment.pk">{{ comment.author }} : {{ comment.content }}</h1></v-card-text>
+              <v-form ref="form" v-model="valid" lazy-validation>
+                <v-text-field
+                  @keyup.enter="createComment(movie)"
+                  v-model="content"
+                  label="Comment"
+                  required
+                >
+                </v-text-field>
+                <div class="d-flex justify-end">
+                  <v-btn
+                    color="primary"
+                    class="mr-4"
+                    outlined
+                    @click="createComment(movie)"
+                  >
+                    comment
+                  </v-btn>
+                </div>
+              </v-form>
           </div>
         </v-tab-item>
         <!-- Review tab -->
         <v-tab-item>
           <v-card flat height="50%">
-            <v-card-text>{{ movie.overview }}</v-card-text>
+            <h1>Review</h1>
+              <ReviewItem 
+                v-for="review in review_list"
+                :key="review.pk" 
+                :review="review" 
+              />
+            <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
+            <v-dialog v-model="dialog" scrollable width="700">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="blue" dark v-bind="attrs" v-on="on" id="create-review">
+                  리뷰 작성하기
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>리뷰 작성하기</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <v-text-field label="Title" v-model.trim="title"></v-text-field>
+                  <v-textarea label="Content" v-model.trim="content"></v-textarea>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions class="d-flex justify-end">
+                  <v-btn color="green darken-1" text @click="dialog = false">
+                    닫기
+                  </v-btn>
+                  <v-btn
+                    @click.prevent="createReview(movie)"
+                    @click="dialog = false"
+                    color="green darken-1"
+                    text
+                  >
+                    게시하기
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-card>
         </v-tab-item>
         <!-- casting Tab -->
@@ -97,14 +151,29 @@
 </template>
 
 <script>
+import ReviewItem from '../movies/ReviewItem.vue'
 import axios from "axios";
+
 export default {
+  components: {
+    ReviewItem,
+  },
   data() {
     return {
       tab: null,
       like: false,
       movie: null,
       actors: [],
+      comments: null,
+      content: "",
+      show: null,
+      comment: null,
+      dialog: null,
+      curpagenum: 1,
+      datapage: 10,
+      reviewlist: [],
+      reviews: null,
+      title: null,
     };
   },
   props: {},
@@ -115,6 +184,89 @@ export default {
         Authorization: `JWT ${token}`,
       };
       return config;
+    },
+    getComments: function (movie) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/comments/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.comments = res.data;
+          console.log(this.comments)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createComment: function (movie) {
+      const comment = {
+        content: this.content,
+      };
+      if (comment.content) {
+        axios({
+          method: "post",
+          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/comment/`,
+          data: comment,
+          headers: this.setToken(),
+        })
+          .then((res) => {
+            console.log(res);
+            this.getComments(movie)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      this.content = "";
+    },
+    getReviews: function (movie) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.reviews = res.data;
+          this.pageArray = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createReview: function (movie) {
+      const review = {
+        title: this.title,
+        content: this.content,
+      };
+
+      if (review.title) {
+        axios({
+          method: "post",
+          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`,
+          data: review,
+          headers: this.setToken(),
+        })
+          .then((res) => {
+            console.log(res);
+            this.getReviews();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    async getReviewlist (movie) {
+      await axios.get(`http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`).then(
+        (res) => {
+          this.reviewlist = res.data
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
     },
   },
   created() {
@@ -147,6 +299,23 @@ export default {
         console.log(err);
       });
   },
+  computed: {
+    startOffset() {
+      return ((this.curpagenum- 1) * this.datapage);
+    },
+    endOffset() {
+      return (this.startOffset + this.datapage);
+    },
+    numofpage() {
+      return Math.ceil(this.reviewlist.length/this.datapage);
+    },
+    review_list() {
+      return this.reviewlist.slice(this.startOffset, this.endOffset)
+    },
+  },
+  mounted () {
+    this.getReviewlist()
+  }
 };
 </script>
 
