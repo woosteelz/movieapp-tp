@@ -7,6 +7,8 @@ import Community from '@/views/community/Index.vue'
 import Movies from '@/views/movies/Index.vue'
 import MovieDetail from '@/views/movies/MovieDetail.vue'
 import temp from '@/views/community/temp.vue'
+import Recommend from '@/views/movies/recommend/Index.vue'
+import MovieSelect from '@/views/movies/recommend/MovieSelect.vue'
 
 Vue.use(VueRouter)
 
@@ -46,7 +48,16 @@ const routes = [
     name: 'MovieDetail',
     component: MovieDetail
   },
-
+  {
+    path: '/movies/recommend',
+    name: 'Recommend',
+    component: Recommend
+  },
+  {
+    path: '/movies/recommend/view',
+    name: 'MovieSelect',
+    component: MovieSelect
+  },
 ]
 
 const router = new VueRouter({

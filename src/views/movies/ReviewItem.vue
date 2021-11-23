@@ -22,9 +22,7 @@
 
       <v-btn icon @click="show = !show">
         <!-- @click="getComments(review)" -->
-        <v-icon>{{
-          show ? "mdi-chevron-up" : "mdi-chevron-down"
-        }}</v-icon>
+        <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
       </v-btn>
     </v-card-actions>
 
@@ -34,29 +32,6 @@
         <v-card-text>
           <h3>{{ review.content }}</h3>
           <v-divider></v-divider>
-          <!-- <h3 v-for="comment in comments" :key="comment.pk">
-            {{ comment.content }}
-            <v-btn @click="deleteComment(review, comment)">X</v-btn>
-          </h3> -->
-          <!-- <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-              @keyup.enter="createComment(review)"
-              v-model="comment_content"
-              label="Comment"
-              required
-            >
-            </v-text-field>
-            <div class="d-flex justify-end">
-              <v-btn
-                color="primary"
-                class="mr-4"
-                outlined
-                @click="createComment(review)"
-              >
-                comment
-              </v-btn>
-            </div>
-          </v-form> -->
         </v-card-text>
       </div>
     </v-expand-transition>

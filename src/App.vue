@@ -22,14 +22,16 @@
         >
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
-        <router-link to="/community" class="white--text" >Community</router-link>
+        <router-link to="/community" class="white--text">Community</router-link>
       </v-btn>
       <v-btn class="ma-1" color="white" plain>
         <router-link to="/movies" class="white--text">Movies</router-link>
       </v-btn>
-      <v-btn class="ma-1" color="white" plain
-        >getMovie</v-btn
-      >
+      <v-btn class="ma-1" color="white" plain>
+        <router-link to="/movies/recommend" class="white--text"
+          >Recommend</router-link
+        >
+      </v-btn>
     </v-app-bar>
     <v-main>
       <router-view />
@@ -51,8 +53,7 @@ export default {
       movies: null,
     };
   },
-  methods: {
-  }
+  methods: {},
 };
 </script>
 <style>

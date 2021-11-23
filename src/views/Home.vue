@@ -1,16 +1,18 @@
 <template>
-  <div id="main">
-    <div>
+  <v-container fluid>
+    <h1 class="text-center">choose one</h1>
+
+    <div id="main">
       <div class="ma-3">
-        <v-btn @click="loadMovies" width="80%" x-large color="primary"
+        <v-btn @click="loadMovies" width="100%" x-large color="primary"
           >영화추천</v-btn
         >
       </div>
       <div class="ma-3">
-        <v-btn width="80%" x-large color="primary">로그인</v-btn>
+        <v-btn x-large width="100%" color="primary">로그인</v-btn>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
