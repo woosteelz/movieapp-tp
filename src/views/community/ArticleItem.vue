@@ -1,25 +1,32 @@
 <template>
   <!-- 커뮤니티 게시글의 각 상태를 나타내는 파일입니다. -->
-  <v-card class="mx-auto ma-3" max-width="700">
+  <v-card class="mx-auto ma-3">
     <v-card-title>
       <h3>{{ article.title }}</h3>
+      <v-spacer></v-spacer>
+      게시일 {{ article.created_at.slice(0, 10) }}
     </v-card-title>
 
-    <v-card-subtitle class="d-flex justify-end">
-      작성시간 {{ article.created_at }}</v-card-subtitle
-    >
-    <v-btn class="ma-2" text icon color="blue lighten-2">
-      <v-icon @click="like(article)">mdi-thumb-up</v-icon>
-    </v-btn>
+    <v-card-subtitle class="d-flex justify-end"> </v-card-subtitle>
+    <div class="ma-5 text-center">
+      <h3>{{ article.content }}</h3>
+    </div>
+    <div class="d-flex justify-end">
+      <v-btn class="ma-2" text icon color="blue lighten-2">
+        <v-icon @click="like(article)">{{
+          liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
+        }}</v-icon>
+      </v-btn>
+      {{ likeCnt }}
+    </div>
     <h3></h3>
 
     <v-card-actions>
-      <v-btn @click="updateArticle" color="green lighten-2" text>
-        수정하기
+      <v-btn @click="updateArticle" color="grey" text>
+        <v-icon>mdi-border-color</v-icon>
       </v-btn>
 
       <v-spacer></v-spacer>
-
       <v-btn icon @click="show = !show">
         <v-icon @click="getComments(article)">{{
           show ? "mdi-chevron-up" : "mdi-chevron-down"
@@ -31,12 +38,15 @@
       <div v-show="show">
         <v-divider></v-divider>
         <v-card-text>
-          <h3>{{ article.content }}</h3>
-          <v-divider></v-divider>
-          <h3 v-for="comment in comments" :key="comment.pk">
-            {{ comment.content }}
-            <v-btn @click="deleteComment(article, comment)">X</v-btn>
-          </h3>
+          <div v-for="comment in comments" :key="comment.pk" class="d-flex">
+            <h4>
+              {{ comment.content }}
+            </h4>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="deleteComment(article, comment)" color="error">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+          </div>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               @keyup.enter="createComment(article)"
@@ -80,6 +90,8 @@ export default {
       content: "",
       comment_content: "",
       show: false,
+      liked: false,
+      likeCnt: 0,
     };
   },
   methods: {
@@ -148,15 +160,8 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          //const likeCount = res.data.like_count
-          //const liked = res.data.liked
-          //console.log('liked')
-
-          //const likeBtn = document.querySelector(`#likeBtn-${article.id}`)
-          // likeBtn.value = liked ? '좋아요 취소' : '좋아요'
-
-          //const likeCnt = document.querySelector(`#likeCnt-${article.id}`)
-          //likeCnt.innerText = `좋아요 ${likeCount}개`
+          this.liked = res.data.liked;
+          this.likeCnt = res.data.like_count;
         })
         .catch((err) => {
           console.log(err);

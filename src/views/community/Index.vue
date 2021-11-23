@@ -24,8 +24,15 @@
     <!-- 새 글 작성 Dialog -->
     <v-dialog v-model="dialog" scrollable width="700">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="green" dark v-bind="attrs" v-on="on" id="create-article">
-          새 글 작성하기
+        <v-btn
+          color="primary "
+          dark
+          v-bind="attrs"
+          v-on="on"
+          fab
+          id="create-article"
+        >
+          <v-icon x-large>mdi-plus</v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -181,23 +188,23 @@ export default {
     // },
   },
   getMovies: function () {
-      axios({
-        method: "get",
-        url: "http://127.0.0.1:8000/movies/",
-        headers: this.setToken(),
+    axios({
+      method: "get",
+      url: "http://127.0.0.1:8000/movies/",
+      headers: this.setToken(),
+    })
+      .then((res) => {
+        console.log(res);
+        this.movies = res.data;
       })
-        .then((res) => {
-          console.log(res);
-          this.movies = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   mounted: function () {
     if (localStorage.getItem("jwt")) {
-      this.getArticles()
-      this.getMovies()
+      this.getArticles();
+      this.getMovies();
     } else {
       this.$router.push({ name: "Login" });
     }
