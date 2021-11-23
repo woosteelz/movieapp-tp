@@ -14,13 +14,14 @@
             </v-card-title>
             <v-card-text class="d-flex align-center flex-wrap body-1">
               <v-rating
+                @input="vote(movie)"
                 v-model="rating"
                 color="warning"
                 background-color="warning"
                 dense
                 class="me-3 flex-shrink-0"
               ></v-rating>
-              <span class="text-sm">5 Star | 98 reviews</span>
+              <span class="text-sm">{{ movie.vote_average }} | {{ review_list.length }} reviews</span>
             </v-card-text>
             <v-card-text>
               {{ movie.overview }}
@@ -193,6 +194,7 @@ export default {
       reviewlist: [],
       reviews: null,
       title: null,
+      rating: 0,
     };
   },
   props: {},
@@ -289,6 +291,26 @@ export default {
           }
         );
     },
+    vote: function (movie) {
+      const vote = {
+        score: this.rating
+      };
+
+      if (vote.score) {
+        axios({
+          method: "post",
+          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/vote/`,
+          data: vote,
+          headers: this.setToken(),
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
   },
   created() {
     // console.log(this.$route.query.pk);
@@ -300,6 +322,7 @@ export default {
       .then((res) => {
         console.log(res);
         this.movie = res.data;
+        this.getReviewlist(this.movie)
 
         for (let i = 0; i < 20; i++) {
           axios({
@@ -320,6 +343,10 @@ export default {
         console.log(err);
       });
   },
+  mounted() {
+    this.getReviewlist();
+    this.getReviews();
+  },
   computed: {
     startOffset() {
       return (this.curpagenum - 1) * this.datapage;
@@ -333,9 +360,6 @@ export default {
     review_list() {
       return this.reviewlist.slice(this.startOffset, this.endOffset);
     },
-  },
-  mounted() {
-    this.getReviewlist();
   },
 };
 </script>

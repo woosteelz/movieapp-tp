@@ -8,17 +8,7 @@
     />
     <!-- <v-text-field v-model="select" @keyup.enter="recommend(select)"></v-text-field> -->
     <div class="text-center">
-      <v-pagination
-        v-model="page"
-        :page-count="20"
-        :page-ragne="3"
-        :margin-pages="2"
-        :click-handler="clickCallback"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-      ></v-pagination>
+      <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
     </div>
 
     <!-- 새 글 작성 Dialog -->
@@ -82,7 +72,9 @@ export default {
       movie_title: null,
       content: null,
       dialog: false,
-      page: 10,
+      curpagenum: 1,
+      datapage: 10,
+      articlelist: [],
     };
   },
   methods: {
@@ -167,8 +159,15 @@ export default {
           console.log(err);
         });
     },
-    clickCallback: function (pageNum) {
-      console.log(pageNum);
+    async getArticlelist () {
+      await axios.get("http://127.0.0.1:8000/community/articles/").then(
+        (res) => {
+          this.articlelist = res.data
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
     },
     // recommend: function (select) {
     //   axios({
@@ -185,29 +184,62 @@ export default {
     //       console.log(err);
     //     });
     // },
-  },
-  getMovies: function () {
-    axios({
-      method: "get",
-      url: "http://127.0.0.1:8000/movies/",
-      headers: this.setToken(),
-    })
-      .then((res) => {
-        console.log(res);
-        this.movies = res.data;
+    },
+    getMovies: function () {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/movies/",
+        headers: this.setToken(),
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          console.log(res);
+          this.movies = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  
+  created: function () {
+    axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/community/articles/",
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.pageArray = res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+          });
   },
-  mounted: function () {
-    if (localStorage.getItem("jwt")) {
-      this.getArticles();
-      this.getMovies();
-    } else {
-      this.$router.push({ name: "Login" });
-    }
+  // mounted: function () {
+  //   if (localStorage.getItem("jwt")) {
+  //     this.getArticles();
+  //     this.getMovies();
+  //   } else {
+  //     this.$router.push({ name: "Login" });
+  //   }
+  // },
+  computed: {
+    startOffset() {
+      return ((this.curpagenum- 1) * this.datapage);
+    },
+    endOffset() {
+      return (this.startOffset + this.datapage);
+    },
+    numofpage() {
+      return Math.ceil(this.articlelist.length/this.datapage);
+    },
+    article_list() {
+      return this.articlelist.slice(this.startOffset, this.endOffset)
+    },
   },
+  mounted () {
+    this.getArticles()
+    this.getArticlelist()
+  }
 };
 </script>
 

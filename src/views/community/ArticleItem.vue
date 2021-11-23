@@ -22,7 +22,7 @@
     <h3></h3>
 
     <v-card-actions>
-      <v-btn @click="updateArticle" color="grey" text>
+      <v-btn @click="updateArticle(article)" color="grey" text>
         <v-icon>mdi-border-color</v-icon>
       </v-btn>
 
@@ -162,6 +162,28 @@ export default {
           console.log(res);
           this.liked = res.data.liked;
           this.likeCnt = res.data.like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateArticle: function (article) {
+      const updatedArticle = {
+        ...article,
+        title: this.title,
+        movie_title: this.movie_title,
+        content: this.content,
+      };
+
+      axios({
+        method: "put",
+        url: `http://127.0.0.1:8000/community/articles/${article.id}/`,
+        data: updatedArticle,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "Login" });
         })
         .catch((err) => {
           console.log(err);
