@@ -31,9 +31,7 @@
               <div>{{ movie.title }}</div>
             </div>
             <div class="text-center d-flex justify-center align-items-end">
-              <v-btn color="primary" outlined @click="showDetail">
-                상세보기
-              </v-btn>
+              <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
             </div>
           </div>
         </v-overlay>
@@ -63,7 +61,7 @@ export default {
       // console.log(this.movie.movie_id);
       this.$router.push({
         name: "MovieDetail",
-        query: { pk: this.movie.id },
+        query: { pk: this.movie.movie_id },
       });
     },
   },
