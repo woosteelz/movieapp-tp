@@ -49,103 +49,12 @@
     </v-img>
     <div class="">
       <v-tabs fixed-tabs background-color="dark" dark v-model="tab">
+        <v-tab> casting </v-tab>
         <v-tab> overview </v-tab>
         <v-tab @click="getComments(movie)"> comment </v-tab>
         <v-tab @click="getReviewlist(movie)"> review </v-tab>
-        <v-tab> casting </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
-        <!-- overview tab -->
-        <v-tab-item>
-          <v-card flat height="400">
-            <v-card-text>{{ movie.overview }} </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <!-- comment tab -->
-        <v-tab-item>
-          <div flat height="100%" width="100%">
-            <v-card-text
-              ><h1 v-for="comment in comments" :key="comment.pk">
-                {{ comment.author }} : {{ comment.content }}
-              </h1></v-card-text
-            >
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field
-                @keyup.enter="createComment(movie)"
-                v-model="content"
-                label="Comment"
-                required
-              >
-              </v-text-field>
-              <div class="d-flex justify-end">
-                <v-btn
-                  color="primary"
-                  class="mr-4"
-                  outlined
-                  @click="createComment(movie)"
-                >
-                  comment
-                </v-btn>
-              </div>
-            </v-form>
-          </div>
-        </v-tab-item>
-        <!-- Review tab -->
-        <v-tab-item>
-          <v-card flat height="50%">
-            <h1>Review</h1>
-            <ReviewItem
-              v-for="review in review_list"
-              :key="review.pk"
-              :review="review"
-            />
-            <v-pagination
-              :length="numofpage"
-              v-model="curpagenum"
-            ></v-pagination>
-            <v-dialog v-model="dialog" scrollable width="700">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="blue"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  id="create-review"
-                >
-                  리뷰 작성하기
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title>리뷰 작성하기</v-card-title>
-                <v-divider></v-divider>
-                <v-card-text>
-                  <v-text-field
-                    label="Title"
-                    v-model.trim="title"
-                  ></v-text-field>
-                  <v-textarea
-                    label="Content"
-                    v-model.trim="content"
-                  ></v-textarea>
-                </v-card-text>
-                <v-divider></v-divider>
-                <v-card-actions class="d-flex justify-end">
-                  <v-btn color="green darken-1" text @click="dialog = false">
-                    닫기
-                  </v-btn>
-                  <v-btn
-                    @click.prevent="createReview(movie)"
-                    @click="dialog = false"
-                    color="green darken-1"
-                    text
-                  >
-                    게시하기
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-card>
-        </v-tab-item>
         <!-- casting Tab -->
         <v-tab-item>
           <v-container class="" height="400" fluid>
@@ -169,6 +78,109 @@
               </v-col>
             </v-row>
           </v-container>
+        </v-tab-item>
+        <!-- overview tab -->
+        <v-tab-item>
+          <v-card flat height="400">
+            <v-card-text>{{ movie.overview }} </v-card-text>
+          </v-card>
+        </v-tab-item>
+        <!-- comment tab -->
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col align="end" cols="4">
+                <v-form
+                  class="align-items-end"
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                >
+                  <v-text-field
+                    @keyup.enter="createComment(movie)"
+                    v-model="content"
+                    label="Comment"
+                    required
+                  >
+                  </v-text-field>
+                  <div class="d-flex justify-end">
+                    <v-btn
+                      color="primary"
+                      class="mr-4"
+                      outlined
+                      @click="createComment(movie)"
+                    >
+                      comment
+                    </v-btn>
+                  </div>
+                </v-form>
+              </v-col>
+              <v-col cols="8">
+                <v-card height="400">
+                  <v-card-text>
+                    <h3 v-for="comment in comments" :key="comment.pk">
+                      {{ comment.author }} : {{ comment.content }}
+                    </h3>
+                    <v-spacer></v-spacer>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+        <!-- Review tab -->
+        <v-tab-item>
+          <v-card min-height="400">
+            <div>
+              <v-row>
+                <v-col
+                  v-for="review in review_list"
+                  :key="review.pk"
+                  cols="12"
+                  md="6"
+                  lg="4"
+                >
+                  <ReviewItem :review="review" />
+                </v-col>
+              </v-row>
+            </div>
+          </v-card>
+          <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
+          <v-dialog v-model="dialog" scrollable width="700">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="blue"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                id="create-review"
+              >
+                리뷰 작성하기
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>리뷰 작성하기</v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-text-field label="Title" v-model.trim="title"></v-text-field>
+                <v-textarea label="Content" v-model.trim="content"></v-textarea>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-actions class="d-flex justify-end">
+                <v-btn color="green darken-1" text @click="dialog = false">
+                  닫기
+                </v-btn>
+                <v-btn
+                  @click.prevent="createReview(movie)"
+                  @click="dialog = false"
+                  color="green darken-1"
+                  text
+                >
+                  게시하기
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-tab-item>
       </v-tabs-items>
     </div>

@@ -1,48 +1,35 @@
 <template>
   <!-- 커뮤니티 게시글의 각 상태를 나타내는 파일입니다. -->
-  <v-card class="mx-auto ma-3" max-width="700">
-    <v-card-title>
-      <h3>{{ review.title }}</h3>
+  <v-card>
+    <v-card-title
+      >{{ review.title }}<v-spacer></v-spacer>
+      <span>{{ review.created_at.slice(0, 10) }}</span></v-card-title
+    >
+    <v-card-text class="d-flex align-center flex-wrap body-1">
+      <v-rating
+        v-model="rating"
+        color="warning"
+        background-color="warning"
+        dense
+      ></v-rating>
+      <span class="ms-3 text-sm">5 Star | 98 reviews</span>
       <v-spacer></v-spacer>
-      게시일 {{ review.created_at.slice(0, 10) }}
-    </v-card-title>
-
-    <v-card-subtitle class="d-flex justify-end" ></v-card-subtitle>
-    <div class="ma-5 text-center">
-      <h3>{{ review.content }}</h3>
-    </div>
-    <div class="d-flex justify-end">
+      {{ review.author }}
+    </v-card-text>
+    <v-card-text>
+      {{ review.content }}
+    </v-card-text>
+    <v-card-actions>
+      <v-btn @click="updateReview(review)" color="grey" text>
+        <v-icon>mdi-border-color</v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
       <v-btn class="ma-2" text icon color="blue lighten-2">
         <v-icon @click="like(review)">{{
           liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
         }}</v-icon>
       </v-btn>
-      {{ likeCnt }}
-    </div>
-    <h3></h3>
-
-    <v-card-actions>
-      <v-btn @click="updateReview(review)" color="grey" text>
-        <v-icon>mdi-border-color</v-icon>
-      </v-btn>
-
-      <v-spacer></v-spacer>
-      <v-btn icon @click="show = !show">
-        <v-icon>{{
-          show ? "mdi-chevron-up" : "mdi-chevron-down"
-        }}</v-icon>
-      </v-btn>
     </v-card-actions>
-
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-        <v-card-text>
-          <h3>{{ review.content }}</h3>
-          <v-divider></v-divider>
-        </v-card-text>
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 
@@ -72,7 +59,7 @@ export default {
       };
       return config;
     },
-    
+
     like: function (review) {
       axios({
         method: "post",
@@ -87,6 +74,5 @@ export default {
         });
     },
   },
-
 };
 </script>
