@@ -1,63 +1,112 @@
 <template>
-  <v-app id="all">
-    <v-app-bar app color="black" dark>
-      <div class="d-flex align-center">client</div>
-      <Home />
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app color="indigo darken-2">
+      <v-list>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-chat-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title
+              ><router-link to="/community" class=""
+                >Community</router-link
+              ></v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-movie-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <router-link to="/movies" class="">Movies</router-link>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-movie-search-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <router-link to="/movies/recommend" class="">Recommend</router-link>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link v-if="isLogin" @click="logout">
+          <v-list-item-icon>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link v-else>
+          <v-list-item-icon>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-      <!-- menus -->
-      <v-spacer></v-spacer>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/accounts/login/" class="white--text"
-          >login</router-link
-        >
-      </v-btn>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/accounts/signup/" class="white--text"
-          >signup</router-link
-        >
-      </v-btn>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/communitytemp" class="white--text"
-          >Community</router-link
-        >
-      </v-btn>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/community" class="white--text">Community</router-link>
-      </v-btn>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/movies" class="white--text">Movies</router-link>
-      </v-btn>
-      <v-btn class="ma-1" color="white" plain>
-        <router-link to="/movies/recommend" class="white--text"
-          >Recommend</router-link
-        >
-      </v-btn>
+    <v-app-bar app hide-on-scroll color="purple darken-4">
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+        hide-on-scroll
+      ></v-app-bar-nav-icon>
+
+      <v-toolbar-title>SSAFYATER</v-toolbar-title>
     </v-app-bar>
-    <v-main>
-      <router-view />
+
+    <v-main style="display: center; align-items: center">
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Home from "../src/views/Home.vue";
 // import axios from 'axios'
 
 export default {
   name: "App",
-  component: {
-    Home,
-  },
+  component: {},
   data: () => {
     return {
       movies: null,
+      drawer: true,
+      isLogin: false,
     };
   },
-  methods: {},
+  methods: {
+    logout: function () {
+      localStorage.removeItem("jwt");
+      this.$router.push({
+        name: "Login",
+      });
+    },
+  },
+  created() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      this.isLogin = true;
+    }
+  },
+  mounted() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      this.isLogin = true;
+    }
+  },
+  updated() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      this.isLogin = true;
+    }
+  },
 };
 </script>
 <style>
-#all {
-  /* background: linear-gradient(pink, blue); */
-}
+/* #all {
+   background: linear-gradient(pink, blue); 
+} */
 </style>

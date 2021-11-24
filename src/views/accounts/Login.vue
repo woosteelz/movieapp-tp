@@ -1,35 +1,76 @@
 <template>
   <v-container>
-    <v-alert v-model="loginSuccess" type="success"></v-alert>
-    <h1>This is login page</h1>
-    <v-form>
-      <v-container fluid>
-        <v-col>
-          <!-- email -->
+    <!-- ----------------------- -->
+    <v-card
+      class="auth-card justify-center"
+      transparent
+      width=""
+      rounded="3"
+      height=""
+      color="purple darken-4"
+    >
+      <!-- title -->
+      <v-card-title class="d-flex align-center justify-center py-7">
+        <h2 class="text-2xl font-weight-semibold">Login</h2>
+      </v-card-title>
+
+      <!-- login form -->
+      <v-card-text>
+        <h2>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">
+            Welcome to SSAFYATER! 👋🏻
+          </p>
+        </h2>
+        <p class="mb-2">
+          Please sign-in to your account and start the adventure
+        </p>
+        <v-form>
           <v-text-field
             v-model="email"
+            outlined
+            label="Email"
+            placeholder="example@example.com"
+            hide-details
+            class="mb-3"
             :rules="[rules.required, rules.email]"
-            label="E-mail"
           ></v-text-field>
 
-          <!-- password -->
           <v-text-field
             v-model="password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
+            outlined
             :type="showPassword ? 'text' : 'password'"
-            name="input-10-2"
-            label="password"
-            value=""
-            class="input-group--focused"
+            label="Password"
+            placeholder="············"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            hide-details
             @click:append="showPassword = !showPassword"
+            :rules="[rules.required, rules.min]"
           ></v-text-field>
-          <div class="d-flex justify-end">
-            <v-btn @click.prevent="login" color="primary">login</v-btn>
+
+          <div class="d-flex align-center justify-space-between flex-wrap">
+            <v-checkbox label="Remember Me" hide-details class="me-3 mt-1">
+            </v-checkbox>
+
+            <!-- forgot link -->
+            <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
           </div>
-        </v-col>
-      </v-container>
-    </v-form>
+
+          <v-btn block color="primary" class="mt-6" @click.prevent="login">
+            Login
+          </v-btn>
+        </v-form>
+      </v-card-text>
+
+      <!-- create new account  -->
+      <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+        <span class="me-2"> New on our platform? </span>
+        <router-link :to="{ name: 'Signup' }"> Create an account </router-link>
+      </v-card-text>
+
+      <!-- divider -->
+
+      <!-- social links -->
+    </v-card>
   </v-container>
 </template>
 

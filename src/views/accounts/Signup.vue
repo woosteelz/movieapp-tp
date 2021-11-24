@@ -23,7 +23,7 @@
           <!-- password -->
           <v-text-field
             v-model="password"
-            :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.passwordRequired, rules.min]"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-2"
@@ -62,6 +62,7 @@ export default {
     return {
       signupSuccess: false,
       email: "",
+      nickname: "",
       password: "",
       passwordConfirm: "",
       showPassword: false,
@@ -89,21 +90,21 @@ export default {
   methods: {
     signup: function () {
       axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/accounts/signup/',
+        method: "post",
+        url: "http://127.0.0.1:8000/accounts/signup/",
         data: {
-          email : this.email,
-          nickname : this.nickname,
-          password : this.password,
-          passwordConfirm : this.passwordConfirm,
+          email: this.email,
+          nickname: this.nickname,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
         },
       })
         .then(() => {
-          this.$router.push({ name: 'Login'})
+          this.$router.push({ name: "Login" });
         })
-        .catch(err => {
-          console.log(err)
-        })
+        .catch((err) => {
+          console.log(err);
+        });
       this.signupSuccess = true;
     },
   },

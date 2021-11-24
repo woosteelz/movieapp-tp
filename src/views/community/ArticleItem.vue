@@ -47,7 +47,7 @@
               <v-icon>mdi-trash-can-outline</v-icon>
             </v-btn>
           </div>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" lazy-validation>
             <v-text-field
               @keyup.enter="createComment(article)"
               v-model="comment_content"

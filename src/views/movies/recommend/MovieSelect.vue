@@ -1,13 +1,71 @@
 <template>
-  <div></div>
+  <v-container style="justify: center">
+    <h1>Recommend Movies</h1>
+    <v-carousel
+      width="300"
+      hide-delimiter-background
+      show-arrows-on-hover
+      style="display:flex; flex-direction:column; justify-content-center; "
+    >
+      <v-carousel-item
+        v-for="(movie, i) in movies"
+        :key="i"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
+        style=""
+      >
+        <v-card class="transparent" max-width="100%" height="100%">
+          <div class="d-flex flex-column-reverse flex-md-row">
+            <v-img
+              contain
+              :src="movie.poster_path"
+              :class="$vuetify.breakpoint.mdAndUp ? 'rounded-lg' : 'rounded-0'"
+              height="100%"
+              :max-width="$vuetify.breakpoint.mdAndUp ? '220' : '100%'"
+            ></v-img>
+            <div>
+              <v-card-title> {{ movie.title }} </v-card-title>
+              <v-card-text class="d-flex align-center flex-wrap body-1">
+                <v-rating
+                  half-increments
+                  :value="movie.vote_average / 2"
+                  readonly
+                  color="warning"
+                  background-color="warning"
+                  dense
+                  class="me-3 flex-shrink-0"
+                ></v-rating>
+                <span class="text-sm"
+                  >{{ movie.like_users.length }}명이 좋아합니다 |
+                  {{ movie.vote_count }}명 투표</span
+                >
+              </v-card-text>
+              <v-card-text>
+                {{ movie.overview }}
+              </v-card-text>
+
+              <v-card-actions class="dense d-flex justify-end">
+                <v-btn text color="primary" dark> 상세보기 </v-btn>
+              </v-card-actions>
+            </div>
+            <div class="pa-4"></div>
+          </div>
+        </v-card>
+      </v-carousel-item>
+    </v-carousel>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
-    return {};
+    return {
+      movies: null,
+    };
   },
+  components: {},
   methods: {
     setToken: function () {
       const token = localStorage.getItem("jwt");
@@ -26,7 +84,10 @@ export default {
       headers: this.setToken(),
     }).then((res) => {
       console.log(res);
+      this.movies = res.data;
     });
   },
 };
 </script>
+
+<style lang="scss" scoped></style>

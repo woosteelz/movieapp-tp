@@ -3,8 +3,8 @@
     <h1 class="">This is Movie main</h1>
     <v-row>
       <v-col
-        v-for="n in movies.length"
-        :key="n"
+        v-for="(movie, index) in movies"
+        :key="index"
         class="d-flex child-flex"
         cols="12"
         xl="2"
@@ -12,7 +12,7 @@
         md="4"
         sm="6"
       >
-        <MovieDetail :movie="movies[n]" />
+        <MovieDetail :movie="movie" />
       </v-col>
     </v-row>
   </v-container>

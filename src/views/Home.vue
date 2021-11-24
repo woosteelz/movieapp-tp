@@ -1,5 +1,5 @@
-<template>
-  <v-container fluid>
+<template style="display: flex; align-items: center">
+  <v-container fluid style="align-items: center">
     <h1 class="text-center">choose one</h1>
 
     <div id="main">
@@ -19,9 +19,7 @@
 import axios from "axios";
 export default {
   name: "Home",
-
   components: {},
-
   data: () => {
     return {
       movies: null,

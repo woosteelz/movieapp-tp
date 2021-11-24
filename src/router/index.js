@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 import Login from '@/views/accounts/Login.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import Community from '@/views/community/Index.vue'
@@ -9,6 +9,7 @@ import MovieDetail from '@/views/movies/MovieDetail.vue'
 import temp from '@/views/community/temp.vue'
 import Recommend from '@/views/movies/recommend/Index.vue'
 import MovieSelect from '@/views/movies/recommend/MovieSelect.vue'
+import Error from '@/components/Error.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/accounts/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/Error',
+    name: 'Error',
+    component: Error
   },
   {
     path: '/accounts/signup',
