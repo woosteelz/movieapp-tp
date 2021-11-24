@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <v-btn
-      class="mx-2"
+      class="mx-2 text--white"
       id="search-btn"
       fab
       dark
       large
-      color="purple"
+      color="deep-purple darken03"
       @click="showSearch = !showSearch"
     >
       <v-icon dark> mdi-movie-search-outline </v-icon>

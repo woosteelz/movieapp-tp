@@ -37,6 +37,7 @@
 <script>
 // import axios from "axios";
 export default {
+  name: "Recommend",
   data() {
     return {
       menues: ["양식", "중식", "일식", "한식", "분식", "간식"],
@@ -45,7 +46,6 @@ export default {
       cate: [],
     };
   },
-  created() {},
   methods: {
     getRecommendMovies: function () {
       const select = [];
@@ -67,6 +67,13 @@ export default {
         alert("음식을 고르세요!");
       }
     },
+  },
+  created: function () {
+    if (localStorage.getItem("jwt")) {
+      this.getRecommendMovies();
+    } else {
+      this.$router.push({ name: "Login" });
+    }
   },
 };
 </script>

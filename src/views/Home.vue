@@ -1,10 +1,10 @@
 <template style="display: flex; align-items: center">
   <v-container fluid style="align-items: center">
-    <h1 class="text-center">choose one</h1>
+    <h1 class="text-center">Choose one</h1>
 
     <div id="main">
       <div class="ma-3">
-        <v-btn @click="loadMovies" width="100%" x-large color="deep-purple darken-3"
+        <v-btn @click="loadMovies(), goToRecommend()" width="100%" x-large color="deep-purple darken-3"
           >영화추천</v-btn
         >
       </div>
@@ -47,6 +47,9 @@ export default {
           console.log(err);
         });
     },
+    goToRecommend: function () {
+      this.$router.push({ name: "Recommend" });
+    }
   },
 };
 </script>

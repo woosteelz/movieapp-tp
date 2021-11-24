@@ -2,7 +2,7 @@
   <v-container>
     <h1>This is Community Main</h1>
     <ArticleItem
-      v-for="article in articles"
+      v-for="article in article_list"
       :key="article.pk"
       :article="article"
     />
@@ -114,13 +114,16 @@ export default {
         })
           .then((res) => {
             console.log(res);
-            this.getArticles();
+            this.getArticlelist();
             this.$router.push({ name: "Community" });
           })
           .catch((err) => {
             console.log(err);
           });
       }
+      this.title = ""
+      this.movie_title = ""
+      this.content = ""
     },
     deleteArticle: function (article) {
       axios({
@@ -130,7 +133,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.getArticles();
+          this.getArticlelist();
         })
         .catch((err) => {
           console.log(err);
@@ -184,18 +187,22 @@ export default {
     },
   },
   created: function () {
-    axios({
-        method: "get",
-        url: "http://127.0.0.1:8000/community/articles/",
-        headers: this.setToken(),
-      })
-        .then((res) => {
-          console.log(res);
-          this.pageArray = res.data;
+    if (localStorage.getItem("jwt")) {
+      axios({
+          method: "get",
+          url: "http://127.0.0.1:8000/community/articles/",
+          headers: this.setToken(),
         })
-        .catch((err) => {
-            console.log(err);
-          });
+          .then((res) => {
+            console.log(res);
+            this.pageArray = res.data;
+          })
+          .catch((err) => {
+              console.log(err);
+            });
+    } else {
+      this.$router.push({ name: "Login" });
+    }
   },
 
   computed: {
