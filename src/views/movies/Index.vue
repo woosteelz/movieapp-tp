@@ -6,7 +6,7 @@
       fab
       dark
       large
-      color="deep-purple darken03"
+      color="deep-purple darken-3"
       @click="showSearch = !showSearch"
     >
       <v-icon dark> mdi-movie-search-outline </v-icon>

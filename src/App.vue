@@ -8,7 +8,7 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title
-              ><router-link to="/community" class="white--text"
+              ><router-link to="/community" class="white--text text-decoration-none"
                 >Community</router-link
               ></v-list-item-title
             >
@@ -19,7 +19,7 @@
             <v-icon>mdi-movie-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies" class="white--text">Movies</router-link>
+            <router-link to="/movies" class="white--text text-decoration-none">Movies</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -27,7 +27,7 @@
             <v-icon>mdi-movie-search-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies/recommend" class="white--text">Recommend</router-link>
+            <router-link to="/movies/recommend" class="white--text text-decoration-none">Recommend</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link v-if="isLogin" @click="logout">
@@ -55,7 +55,9 @@
         hide-on-scroll
       ></v-app-bar-nav-icon>
 
-      <v-toolbar-title>SSAFYATER</v-toolbar-title>
+      <v-toolbar-title>
+        <img src="@/assets/ssafyater_logo.png" alt="" width="200px">
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-main style="display: center; align-items: center">

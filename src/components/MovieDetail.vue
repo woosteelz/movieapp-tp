@@ -31,7 +31,7 @@
               <div>{{ movie.title }}</div>
             </div>
             <div class="text-center d-flex justify-center align-items-end">
-              <v-btn color="primary" @click="showDetail"> 상세보기 </v-btn>
+              <v-btn color="deep-purple darken-3" @click="showDetail"> 상세보기 </v-btn>
             </div>
           </div>
         </v-overlay>

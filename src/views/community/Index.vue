@@ -1,15 +1,14 @@
 <template>
   <v-container>
-    <<<<<<< HEAD
     <h1 class="d-flex justify-center ma-5">Community</h1>
     <v-simple-table height="600" max-height="600" fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
             <th class="text-uppercase">글 제목</th>
+            <th class="text-center text-uppercase">영화 제목</th>
             <th class="text-center text-uppercase">작성자</th>
             <th class="text-center text-uppercase">작성시간</th>
-            <th class="text-center text-uppercase">영화 제목</th>
             <th class="text-center text-uppercase">마지막 수정시간</th>
             <th class="text-center text-uppercase">비고</th>
           </tr>
@@ -22,7 +21,7 @@
               <v-text-field label="Title" v-model="edit.title"></v-text-field>
               <v-text-field
                 label="Movie Title"
-                v-model="edit_title"
+                v-model="edit.movie_title"
                 aria-autocomplete="on"
               ></v-text-field>
               <v-textarea label="Content" v-model="edit.content"></v-textarea>
@@ -32,7 +31,7 @@
               <v-btn color="primary darken-1" text @click="editDialog = false">
                 닫기
               </v-btn>
-              <v-btn @click="updateArticle" color="primary darken-1" text>
+              <v-btn @click.prevent="updateArticle" @click="editDialog = false" color="primary darken-1" text>
                 수정하기
               </v-btn>
             </v-card-actions>
@@ -59,16 +58,16 @@
           </v-card>
         </v-dialog>
         <tbody>
-          <tr v-for="article in articles" :key="article.id">
+          <tr v-for="article in article_list" :key="article.id">
             <td>{{ article.title }}</td>
+            <td class="text-center">
+              {{ article.movie_title }}
+            </td>
             <td class="text-center">
               {{ article.author }}
             </td>
             <td class="text-center">
               {{ article.created_at.slice(0, 16) }}
-            </td>
-            <td class="text-center">
-              {{ article.movie_title }}
             </td>
             <td class="text-center">
               {{ article.updated_at.slice(0, 16) }}
@@ -85,14 +84,6 @@
         </tbody>
       </template>
     </v-simple-table>
-    =======
-    <h1>This is Community Main</h1>
-    <ArticleItem
-      v-for="article in article_list"
-      :key="article.pk"
-      :article="article"
-    />
-    >>>>>>> 53b73838fa001c9fa57efb2606d750c51796b944
     <div class="text-center">
       <v-pagination
         :length="numofpage"
@@ -105,7 +96,7 @@
     <v-dialog v-model="dialog" scrollable width="700">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary "
+          color="deep-purple darken-3"
           v-bind="attrs"
           v-on="on"
           fab
@@ -146,14 +137,12 @@
 </template>
 
 <script>
-// import Articlearticle from "../community/Articlearticle.vue";
 import axios from "axios";
-//import { mapActions } from 'vuex'
 
 export default {
   name: "Community",
   components: {
-    // Articlearticle,
+
   },
   data() {
     return {
@@ -213,7 +202,7 @@ export default {
         })
           .then((res) => {
             console.log(res);
-            this.getArticles();
+            this.getArticlelist();
             // this.$router.push({ name: "Community" });
           })
           .catch((err) => {
@@ -239,7 +228,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.dialogDelete = false;
-          this.getArticles();
+          this.getArticlelist();
         })
         .catch((err) => {
           console.log(err);
@@ -264,6 +253,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.getArticlelist()
         })
         .catch((err) => {
           console.log(err);
@@ -304,6 +294,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.pageArray = res.data;
+          this.getArticlelist()
         })
         .catch((err) => {
           console.log(err);
