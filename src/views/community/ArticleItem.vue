@@ -13,7 +13,7 @@
     </div>
     <div class="d-flex justify-end">
       <v-btn class="ma-2" text icon color="blue lighten-2">
-        <v-icon @click="like(article)">{{
+        <v-icon @click="like(article)" color="deep-purple lighten-3">{{
           liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
         }}</v-icon>
       </v-btn>

@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app color="indigo darken-2">
+    <v-navigation-drawer v-model="drawer" app color="deep-purple darken-3">
       <v-list>
         <v-list-item link>
           <v-list-item-icon>
@@ -8,7 +8,7 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title
-              ><router-link to="/community" class=""
+              ><router-link to="/community" class="white--text"
                 >Community</router-link
               ></v-list-item-title
             >
@@ -19,7 +19,7 @@
             <v-icon>mdi-movie-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies" class="">Movies</router-link>
+            <router-link to="/movies" class="white--text">Movies</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -27,7 +27,7 @@
             <v-icon>mdi-movie-search-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies/recommend" class="">Recommend</router-link>
+            <router-link to="/movies/recommend" class="white--text">Recommend</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link v-if="isLogin" @click="logout">
@@ -49,7 +49,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app hide-on-scroll color="purple darken-4">
+    <v-app-bar app hide-on-scroll color="deep-purple darken-3">
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
         hide-on-scroll

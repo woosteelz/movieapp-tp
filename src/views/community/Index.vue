@@ -6,9 +6,8 @@
       :key="article.pk"
       :article="article"
     />
-    <!-- <v-text-field v-model="select" @keyup.enter="recommend(select)"></v-text-field> -->
     <div class="text-center">
-      <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
+      <v-pagination :length="numofpage" color="deep-purple darken-3" v-model="curpagenum"></v-pagination>
     </div>
 
     <!-- 새 글 작성 Dialog -->
@@ -21,7 +20,7 @@
           fab
           id="create-article"
         >
-          <v-icon x-large>mdi-plus</v-icon>
+          <v-icon cx-large>mdi-plus</v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -169,22 +168,6 @@ export default {
         }
       )
     },
-    // recommend: function (select) {
-    //   axios({
-    //     method: "post",
-    //     url: `http://127.0.0.1:8000/movies/recommend/${select}/`,
-    //     headers: this.setToken(),
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.recommended = res.data
-    //       console.log(this.recommended)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    },
     getMovies: function () {
       axios({
         method: "get",
@@ -199,7 +182,7 @@ export default {
           console.log(err);
         });
     },
-  
+  },
   created: function () {
     axios({
         method: "get",
@@ -214,14 +197,7 @@ export default {
             console.log(err);
           });
   },
-  // mounted: function () {
-  //   if (localStorage.getItem("jwt")) {
-  //     this.getArticles();
-  //     this.getMovies();
-  //   } else {
-  //     this.$router.push({ name: "Login" });
-  //   }
-  // },
+
   computed: {
     startOffset() {
       return ((this.curpagenum- 1) * this.datapage);
