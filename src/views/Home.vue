@@ -8,7 +8,7 @@
           >영화추천</v-btn
         >
       </div>
-      <div class="ma-3">
+      <div class="ma-3" v-if="!isLogin">
         <v-btn x-large width="100%" color="primary">로그인</v-btn>
       </div>
     </div>
@@ -23,6 +23,7 @@ export default {
   data: () => {
     return {
       movies: null,
+      isLogin: localStorage.getItem("jwt"),
     };
   },
   methods: {

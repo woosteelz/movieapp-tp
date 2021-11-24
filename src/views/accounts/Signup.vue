@@ -1,56 +1,105 @@
 <template>
-  <v-container>
-    <!-- 회원가입 완료 메시지 출력 -->
-    <v-alert v-model="signupSuccess" type="success"> 회원가입 완료! </v-alert>
-    <h1>This is Signup page</h1>
-    <v-form>
-      <v-container fluid>
-        <v-col>
-          <!-- email -->
-          <v-text-field
-            v-model="email"
-            :rules="[rules.emailRequired, rules.email]"
-            label="E-mail"
-          ></v-text-field>
+  <v-container width="50%">
+    <div class="auth-wrapper auth-v1">
+      <div class="auth-inner">
+        <v-card class="auth-card">
+          <!-- logo -->
+          <v-card-title class="d-flex align-center justify-center py-7">
+            <h2 class="text-2xl font-weight-semibold">Signup</h2>
+          </v-card-title>
 
-          <!-- name -->
-          <v-text-field
-            v-model="nickname"
-            :rules="[rules.nameRequired]"
-            label="name"
-          ></v-text-field>
+          <!-- title -->
+          <v-card-text>
+            <p class="text-2xl font-weight-semibold text--primary mb-2">
+              Adventure starts here 🚀
+            </p>
+            <p class="mb-2">Make your app management easy and fun!</p>
+          </v-card-text>
 
-          <!-- password -->
-          <v-text-field
-            v-model="password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.passwordRequired, rules.min]"
-            :type="showPassword ? 'text' : 'password'"
-            name="input-10-2"
-            label="비밀번호"
-            value=""
-            class="input-group--focused"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field>
+          <!-- login form -->
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                v-model="nickname"
+                outlined
+                label="name"
+                placeholder="name"
+                hide-details
+                class="mb-3"
+              ></v-text-field>
 
-          <!-- password confirm -->
-          <v-text-field
-            v-model="passwordConfirm"
-            :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.passwordRequired, rules.min, rules.passwordCorrect]"
-            :type="showConfirm ? 'text' : 'password'"
-            name="input-10-2"
-            label="비밀번호 확인"
-            value=""
-            class="input-group--focused"
-            @click:append="showConfirm = !showConfirm"
-          ></v-text-field>
-          <div class="d-flex justify-end">
-            <v-btn @click.prevent="signup" color="primary">Signup</v-btn>
-          </div>
-        </v-col>
-      </v-container>
-    </v-form>
+              <v-text-field
+                v-model="email"
+                outlined
+                label="Email"
+                placeholder="example@example.com"
+                hide-details
+                class="mb-3"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="password"
+                outlined
+                :type="showPassword ? 'text' : 'password'"
+                label="비밀번호"
+                placeholder="············"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                hide-details
+                class="mb-3"
+                @click:append="showPassword = !showPassword"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="passwordConfirm"
+                outlined
+                :type="showConfirm ? 'text' : 'password'"
+                label="비밀번호 확인"
+                placeholder="············"
+                :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                hide-details
+                class="mb-3"
+                @click:append="showConfirm = !showConfirm"
+              ></v-text-field>
+
+              <v-btn block color="primary" class="mt-6" @click="signup">
+                Sign Up
+              </v-btn>
+            </v-form>
+          </v-card-text>
+
+          <!-- create new account  -->
+          <v-card-text
+            class="d-flex align-center justify-center flex-wrap mt-2"
+          >
+            <span class="me-2"> Already have an account? </span>
+            <router-link :to="{ name: 'Login' }"> Sign in instead </router-link>
+          </v-card-text>
+
+          <!-- divider -->
+          <v-card-text class="d-flex align-center mt-2">
+            <v-divider></v-divider>
+            <span class="mx-5">or</span>
+            <v-divider></v-divider>
+          </v-card-text>
+
+          <!-- social link -->
+          <v-card-actions class="d-flex justify-center">
+            <v-btn
+              v-for="link in socialLink"
+              :key="link.icon"
+              icon
+              class="ms-1"
+            >
+              <v-icon
+                :color="$vuetify.theme.dark ? link.colorInDark : link.color"
+              >
+                {{ link.icon }}
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
+    </div>
   </v-container>
 </template>
 
