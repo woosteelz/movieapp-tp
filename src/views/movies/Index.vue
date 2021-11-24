@@ -1,9 +1,10 @@
 <template>
   <v-container>
     <h1 class="">This is Movie main</h1>
+    <input type="text" v-model="search" style="background:white">
     <v-row>
       <v-col
-        v-for="(movie, index) in movies"
+        v-for="(movie, index) in filteredMovies"
         :key="index"
         class="d-flex child-flex"
         cols="12"
@@ -12,7 +13,7 @@
         md="4"
         sm="6"
       >
-        <MovieDetail :movie="movie" />
+        <MovieDetail :movie="filteredMovies[index]" />
       </v-col>
     </v-row>
   </v-container>
@@ -25,7 +26,8 @@ export default {
   name: "Movies",
   data() {
     return {
-      movies: null,
+      movies: [],
+      search: '',
     };
   },
   components: {
@@ -61,5 +63,12 @@ export default {
       this.$router.push({ name: "Login" });
     }
   },
+  computed: {
+    filteredMovies: function() {
+      return this.movies.filter((movie) => {
+        return movie.title.match(this.search)
+      })
+    }
+  }
 };
 </script>
