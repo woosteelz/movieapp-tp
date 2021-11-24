@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <<<<<<< HEAD
     <h1 class="d-flex justify-center ma-5">Community</h1>
     <v-simple-table height="600" max-height="600" fixed-header>
       <template v-slot:default>
@@ -84,6 +85,14 @@
         </tbody>
       </template>
     </v-simple-table>
+    =======
+    <h1>This is Community Main</h1>
+    <ArticleItem
+      v-for="article in article_list"
+      :key="article.pk"
+      :article="article"
+    />
+    >>>>>>> 53b73838fa001c9fa57efb2606d750c51796b944
     <div class="text-center">
       <v-pagination
         :length="numofpage"
@@ -211,6 +220,9 @@ export default {
             console.log(err);
           });
       }
+      this.title = "";
+      this.movie_title = "";
+      this.content = "";
     },
     beforeArticle: function (article) {
       this.dialogDelete = true;
@@ -283,18 +295,22 @@ export default {
     },
   },
   created: function () {
-    axios({
-      method: "get",
-      url: "http://127.0.0.1:8000/community/articles/",
-      headers: this.setToken(),
-    })
-      .then((res) => {
-        console.log(res);
-        this.pageArray = res.data;
+    if (localStorage.getItem("jwt")) {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/community/articles/",
+        headers: this.setToken(),
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          console.log(res);
+          this.pageArray = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      this.$router.push({ name: "Login" });
+    }
   },
 
   computed: {
