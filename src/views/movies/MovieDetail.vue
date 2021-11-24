@@ -88,36 +88,39 @@
         <!-- comment tab -->
         <v-tab-item>
           <v-container>
-            <v-row>
-              <v-col align="end" cols="4">
-                <v-form
-                  class="align-items-end"
-                  ref="form"
-                  v-model="valid"
-                  lazy-validation
-                >
-                  <v-text-field
-                    @keyup.enter="createComment(movie)"
-                    v-model="content"
-                    label="Comment"
-                    required
+            <v-row align="end">
+              <v-col cols="4">
+                <h5>leave your comments</h5>
+                <div>
+                  <v-form
+                    class="d-flexalign-items-end"
+                    ref="form"
+                    v-model="valid"
+                    lazy-validation
                   >
-                  </v-text-field>
-                  <div class="d-flex justify-end">
-                    <v-btn
-                      color="primary"
-                      class="mr-4"
-                      outlined
-                      @click="createComment(movie)"
+                    <v-text-field
+                      @keyup.enter="createComment(movie)"
+                      v-model="content"
+                      label="Comment"
+                      required
                     >
-                      comment
-                    </v-btn>
-                  </div>
-                </v-form>
+                    </v-text-field>
+                    <div class="d-flex justify-end">
+                      <v-btn
+                        color="primary"
+                        class="mr-4"
+                        outlined
+                        @click="createComment(movie)"
+                      >
+                        comment
+                      </v-btn>
+                    </div>
+                  </v-form>
+                </div>
               </v-col>
               <v-col cols="8">
-                <v-card height="400">
-                  <v-card-text>
+                <v-card min-height="350">
+                  <v-card-text class="scroll">
                     <h3 v-for="comment in comments" :key="comment.pk">
                       {{ comment.author }} : {{ comment.content }}
                     </h3>
@@ -145,19 +148,24 @@
               </v-row>
             </div>
           </v-card>
-          <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
+          <div class="d-flex justify-end ma-5">
+            <v-btn
+              flat
+              rounded-0
+              outlined
+              color="primary"
+              @click="dialog = !dialog"
+              ><v-icon>mdi-plus</v-icon></v-btn
+            >
+          </div>
+          <v-pagination
+            :length="numofpage"
+            v-model="curpagenum"
+            class="ma-3"
+          ></v-pagination>
+          <v-spacer></v-spacer>
+
           <v-dialog v-model="dialog" scrollable width="700">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="blue"
-                dark
-                v-bind="attrs"
-                v-on="on"
-                id="create-review"
-              >
-                리뷰 작성하기
-              </v-btn>
-            </template>
             <v-card>
               <v-card-title>리뷰 작성하기</v-card-title>
               <v-divider></v-divider>
@@ -381,4 +389,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.scroll {
+  overflow-x: scroll;
+}
+</style>

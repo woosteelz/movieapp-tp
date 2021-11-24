@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <<<<<<< HEAD
     <h1 class="d-flex justify-center ma-5">Community</h1>
     <v-simple-table height="600" max-height="600" fixed-header>
       <template v-slot:default>
