@@ -196,7 +196,6 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
         </v-tab-item>
       </v-tabs-items>
     </div>

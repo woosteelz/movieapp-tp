@@ -14,7 +14,12 @@
           <v-btn color="primary darken-1" text @click="editDialog = false">
             닫기
           </v-btn>
-          <v-btn @click.prevent="updateReview" @click="editDialog = false" color="primary darken-1" text>
+          <v-btn
+            @click.prevent="updateReview"
+            @click="editDialog = false"
+            color="primary darken-1"
+            text
+          >
             수정하기
           </v-btn>
         </v-card-actions>
@@ -22,9 +27,7 @@
     </v-dialog>
     <v-dialog v-model="dialogDelete" max-width="500px">
       <v-card>
-        <v-card-title class="text-h5"
-          >정말로 삭제하시겠습니까?
-        </v-card-title>
+        <v-card-title class="text-h5">정말로 삭제하시겠습니까? </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -33,9 +36,7 @@
             @click="dialogDelete = !dialogDelete"
             >Cancel</v-btn
           >
-          <v-btn color="blue darken-1" text @click="deleteReview()"
-            >OK</v-btn
-          >
+          <v-btn color="blue darken-1" text @click="deleteReview()">OK</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -63,9 +64,7 @@
       <v-btn @click="editReview(review)" color="grey" text>
         <v-icon>mdi-border-color</v-icon>
       </v-btn>
-      <v-icon @click="beforeReview(review)" color="grey">
-        mdi-delete
-      </v-icon>
+      <v-icon @click="beforeReview(review)" color="grey"> mdi-delete </v-icon>
       <v-spacer></v-spacer>
       <v-btn class="ma-2" text icon color="blue lighten-2">
         <v-icon @click="like(review)">{{
@@ -88,7 +87,7 @@ export default {
     },
     movie: {
       type: Object,
-    }
+    },
   },
   data() {
     return {
@@ -158,10 +157,11 @@ export default {
         .then((res) => {
           console.log(res);
           this.dialogDelete = false;
-          this.getReviewlist(this.movie)
+          this.getReviewlist(this.movie);
         })
         .catch((err) => {
           console.log(err);
+          alert("잘못된 접근입니다");
         });
     },
     editReview: function (review) {
@@ -181,7 +181,7 @@ export default {
         headers: this.setToken(),
       })
         .then((res) => {
-          console.log(res)
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
