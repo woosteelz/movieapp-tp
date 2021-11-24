@@ -1,7 +1,25 @@
 <template>
   <v-container>
-    <h1 class="">This is Movie main</h1>
-    <input type="text" v-model="search" style="background:white">
+    <v-btn
+      class="mx-2"
+      id="search-btn"
+      fab
+      dark
+      large
+      color="purple"
+      @click="showSearch = !showSearch"
+    >
+      <v-icon dark> mdi-movie-search-outline </v-icon>
+    </v-btn>
+    <div id="search-input">
+      <v-text-field
+        v-show="showSearch"
+        v-model="search"
+        label="Keyword"
+        clearable
+        filled
+      ></v-text-field>
+    </div>
     <v-row>
       <v-col
         v-for="(movie, index) in filteredMovies"
@@ -27,7 +45,8 @@ export default {
   data() {
     return {
       movies: [],
-      search: '',
+      search: "",
+      showSearch: false,
     };
   },
   components: {
@@ -64,11 +83,26 @@ export default {
     }
   },
   computed: {
-    filteredMovies: function() {
+    filteredMovies: function () {
       return this.movies.filter((movie) => {
-        return movie.title.match(this.search)
-      })
-    }
-  }
+        return movie.title.match(this.search);
+      });
+    },
+  },
 };
 </script>
+
+<style>
+#search-input {
+  position: fixed;
+  top: 80px;
+  right: 100px;
+  z-index: 1;
+}
+#search-btn {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1;
+}
+</style>

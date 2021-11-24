@@ -14,6 +14,8 @@
             </v-card-title>
             <v-card-text class="d-flex align-center flex-wrap body-1">
               <v-rating
+                half-increments
+                :value="movie.vote_average / 2"
                 @input="vote(movie)"
                 v-model="rating"
                 color="warning"
@@ -21,7 +23,10 @@
                 dense
                 class="me-3 flex-shrink-0"
               ></v-rating>
-              <span class="text-sm">{{ movie.vote_average }} | {{ review_list.length }} reviews</span>
+              <span class="text-sm"
+                >{{ movie.vote_average }} |
+                {{ review_list.length }} reviews</span
+              >
             </v-card-text>
             <v-card-text>
               {{ movie.overview }}
@@ -293,7 +298,7 @@ export default {
     },
     vote: function (movie) {
       const vote = {
-        score: this.rating
+        score: this.rating,
       };
 
       if (vote.score) {
@@ -322,7 +327,7 @@ export default {
       .then((res) => {
         console.log(res);
         this.movie = res.data;
-        this.getReviewlist(this.movie)
+        this.getReviewlist(this.movie);
 
         for (let i = 0; i < 20; i++) {
           axios({

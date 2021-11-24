@@ -1,6 +1,6 @@
 <template>
   <v-container style="justify: center">
-    <h1>Recommend Movies</h1>
+    <h1 class="d-flex justify-center ma-3">Recommend Movies</h1>
     <v-carousel
       width="300"
       hide-delimiter-background
@@ -45,7 +45,14 @@
               </v-card-text>
 
               <v-card-actions class="dense d-flex justify-end">
-                <v-btn text color="primary" dark> 상세보기 </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  dark
+                  @click="showDetail(movie.movie_id)"
+                >
+                  상세보기
+                </v-btn>
               </v-card-actions>
             </div>
             <div class="pa-4"></div>
@@ -73,6 +80,13 @@ export default {
         Authorization: `JWT ${token}`,
       };
       return config;
+    },
+    showDetail(movie_id) {
+      // console.log(this.movie.movie_id);
+      this.$router.push({
+        name: "MovieDetail",
+        query: { pk: movie_id },
+      });
     },
   },
   created() {
