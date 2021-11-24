@@ -167,36 +167,6 @@ export default {
           console.log(err);
         });
     },
-    updateArticle: function (article) {
-      const updatedArticle = {
-        ...article,
-        title: this.title,
-        movie_title: this.movie_title,
-        content: this.content,
-      };
-
-      axios({
-        method: "put",
-        url: `http://127.0.0.1:8000/community/articles/${article.id}/`,
-        data: updatedArticle,
-        headers: this.setToken(),
-      })
-        .then((res) => {
-          console.log(res);
-          this.$router.push({ name: "Login" });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
   },
-
-  // created: function (article) {
-  //   if (localStorage.getItem('jwt')) {
-  //     this.getComments(article)
-  //   } else {
-  //     this.$router.push({name: 'Login'})
-  //   }
-  // },
 };
 </script>

@@ -14,7 +14,6 @@
             </v-card-title>
             <v-card-text class="d-flex align-center flex-wrap body-1">
               <v-rating
-                half-increments
                 :value="movie.vote_average / 2"
                 @input="vote(movie)"
                 v-model="rating"
@@ -143,7 +142,7 @@
                   md="6"
                   lg="4"
                 >
-                  <ReviewItem :review="review" />
+                  <ReviewItem :review="review" :movie="movie" />
                 </v-col>
               </v-row>
             </div>
@@ -171,6 +170,14 @@
               <v-divider></v-divider>
               <v-card-text>
                 <v-text-field label="Title" v-model.trim="title"></v-text-field>
+                <v-rating
+                  v-model.trim="score"
+                  half-increments
+                  color="warning"
+                  background-color="warning"
+                  dense
+                  class="me-3 flex-shrink-0"
+                ></v-rating>
                 <v-textarea label="Content" v-model.trim="content"></v-textarea>
               </v-card-text>
               <v-divider></v-divider>
@@ -189,6 +196,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <v-pagination :length="numofpage" v-model="curpagenum"></v-pagination>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -206,7 +214,6 @@ export default {
   data() {
     return {
       tab: null,
-      like: false,
       movie: null,
       actors: [],
       comments: null,
@@ -219,10 +226,10 @@ export default {
       reviewlist: [],
       reviews: null,
       title: null,
+      score: 0,
       rating: 0,
     };
   },
-  props: {},
   methods: {
     setToken: function () {
       const token = localStorage.getItem("jwt");
@@ -240,7 +247,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.comments = res.data;
-          console.log(this.comments);
         })
         .catch((err) => {
           console.log(err);
@@ -285,6 +291,7 @@ export default {
     createReview: function (movie) {
       const review = {
         title: this.title,
+        score: this.score,
         content: this.content,
       };
 
@@ -297,12 +304,15 @@ export default {
         })
           .then((res) => {
             console.log(res);
-            this.getReviews();
+            this.getReviewlist(movie);
           })
           .catch((err) => {
             console.log(err);
           });
       }
+      this.title = "";
+      this.score = 0;
+      this.content = "";
     },
     async getReviewlist(movie) {
       await axios
@@ -336,6 +346,21 @@ export default {
           });
       }
     },
+    like: function (review) {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/movies/like/${review.id}/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.liked = res.data.liked;
+          this.likeCnt = res.data.like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     // console.log(this.$route.query.pk);
@@ -368,10 +393,6 @@ export default {
         console.log(err);
       });
   },
-  mounted() {
-    this.getReviewlist();
-    this.getReviews();
-  },
   computed: {
     startOffset() {
       return (this.curpagenum - 1) * this.datapage;
@@ -388,9 +409,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.scroll {
-  overflow-x: scroll;
-}
-</style>

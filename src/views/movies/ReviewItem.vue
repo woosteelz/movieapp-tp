@@ -1,18 +1,58 @@
 <template>
   <!-- 커뮤니티 게시글의 각 상태를 나타내는 파일입니다. -->
   <v-card>
+    <v-dialog v-model="editDialog" scrollable width="700">
+      <v-card>
+        <v-card-title>수정하기</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-text-field label="Title" v-model="edit.title"></v-text-field>
+          <v-textarea label="Content" v-model="edit.content"></v-textarea>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="d-flex justify-end">
+          <v-btn color="primary darken-1" text @click="editDialog = false">
+            닫기
+          </v-btn>
+          <v-btn @click.prevent="updateReview" @click="editDialog = false" color="primary darken-1" text>
+            수정하기
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="text-h5"
+          >정말로 삭제하시겠습니까?
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialogDelete = !dialogDelete"
+            >Cancel</v-btn
+          >
+          <v-btn color="blue darken-1" text @click="deleteReview()"
+            >OK</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-card-title
       >{{ review.title }}<v-spacer></v-spacer>
       <span>{{ review.created_at.slice(0, 10) }}</span></v-card-title
     >
     <v-card-text class="d-flex align-center flex-wrap body-1">
       <v-rating
-        v-model="rating"
+        :value="review.score"
         color="warning"
         background-color="warning"
         dense
+        readonly
       ></v-rating>
-      <span class="ms-3 text-sm">5 Star | 98 reviews</span>
+      <span class="ms-3 text-sm">{{ likeCnt }} likes</span>
       <v-spacer></v-spacer>
       {{ review.author }}
     </v-card-text>
@@ -20,9 +60,12 @@
       {{ review.content }}
     </v-card-text>
     <v-card-actions>
-      <v-btn @click="updateReview(review)" color="grey" text>
+      <v-btn @click="editReview(review)" color="grey" text>
         <v-icon>mdi-border-color</v-icon>
       </v-btn>
+      <v-icon @click="beforeReview(review)" color="grey">
+        mdi-delete
+      </v-icon>
       <v-spacer></v-spacer>
       <v-btn class="ma-2" text icon color="blue lighten-2">
         <v-icon @click="like(review)">{{
@@ -43,12 +86,26 @@ export default {
     review: {
       type: Object,
     },
+    movie: {
+      type: Object,
+    }
   },
   data() {
     return {
       title: "",
       content: "",
       show: false,
+      liked: false,
+      likeCnt: 0,
+      editDialog: false,
+      dialogDelete: false,
+      reviewToDelete: null,
+      reviewlist: [],
+      edit: {
+        title: "",
+        content: "",
+        movie_title: "",
+      },
     };
   },
   methods: {
@@ -59,19 +116,90 @@ export default {
       };
       return config;
     },
-
+    async getReviewlist(movie) {
+      await axios
+        .get(`http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`)
+        .then(
+          (res) => {
+            this.reviewlist = res.data;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    },
     like: function (review) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/community/like/${review.id}/`,
+        url: `http://127.0.0.1:8000/movies/${review.id}/like/`,
         headers: this.setToken(),
       })
         .then((res) => {
           console.log(res);
+          this.liked = res.data.liked;
+          this.likeCnt = res.data.like_count;
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    beforeReview: function (review) {
+      this.dialogDelete = true;
+      this.reviewToDelete = review;
+      console.log(this.reviewToDelete.id);
+    },
+    deleteReview: function () {
+      console.log(this.reviewToDelete);
+      axios({
+        method: "delete",
+        url: `http://127.0.0.1:8000/movies/${this.reviewToDelete.id}/review/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.dialogDelete = false;
+          this.getReviewlist(this.movie)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    editReview: function (review) {
+      this.editDialog = true;
+      this.edit = review;
+    },
+    updateReview: function () {
+      const updatedReview = {
+        title: this.edit.title,
+        content: this.edit.content,
+      };
+
+      axios({
+        method: "put",
+        url: `http://127.0.0.1:8000/movies/${this.edit.id}/review/`,
+        data: updatedReview,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  computed: {
+    startOffset() {
+      return (this.curpagenum - 1) * this.datapage;
+    },
+    endOffset() {
+      return this.startOffset + this.datapage;
+    },
+    numofpage() {
+      return Math.ceil(this.reviewlist.length / this.datapage);
+    },
+    review_list() {
+      return this.reviewlist.slice(this.startOffset, this.endOffset);
     },
   },
 };
