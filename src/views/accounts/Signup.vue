@@ -11,9 +11,9 @@
           <!-- title -->
           <v-card-text>
             <p class="text-2xl font-weight-semibold text--primary mb-2">
-              Adventure starts here 🚀
+              Welcome to SSAFYATER! 👋🏻
             </p>
-            <p class="mb-2">Make your app management easy and fun!</p>
+            <p class="mb-2">Please sign-up to your account and start the adventure!</p>
           </v-card-text>
 
           <!-- login form -->
@@ -61,7 +61,7 @@
                 @click:append="showConfirm = !showConfirm"
               ></v-text-field>
 
-              <v-btn block color="primary" class="mt-6" @click="signup">
+              <v-btn block color="grey lighten-2" class="mt-6 black--text" @click="signup">
                 Sign Up
               </v-btn>
             </v-form>
@@ -72,7 +72,7 @@
             class="d-flex align-center justify-center flex-wrap mt-2"
           >
             <span class="me-2"> Already have an account? </span>
-            <router-link :to="{ name: 'Login' }"> Sign in instead </router-link>
+            <router-link :to="{ name: 'Login' }" class="white--text"> Sign in instead </router-link>
           </v-card-text>
 
           <!-- divider -->

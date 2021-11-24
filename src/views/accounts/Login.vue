@@ -7,7 +7,6 @@
       width=""
       rounded="3"
       height=""
-      color="purple darken-4"
     >
       <!-- title -->
       <v-card-title class="d-flex align-center justify-center py-7">
@@ -52,10 +51,10 @@
             </v-checkbox>
 
             <!-- forgot link -->
-            <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
+            <a href="javascript:void(0)" class="mt-1 white--text"> Forgot Password? </a>
           </div>
 
-          <v-btn block color="primary" class="mt-6" @click.prevent="login">
+          <v-btn block color="grey lighten-2" class="mt-6 black--text" @click.prevent="login">
             Login
           </v-btn>
         </v-form>
@@ -64,7 +63,7 @@
       <!-- create new account  -->
       <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
         <span class="me-2"> New on our platform? </span>
-        <router-link :to="{ name: 'Signup' }"> Create an account </router-link>
+        <router-link :to="{ name: 'Signup' }" class="white--text"> Create an account </router-link>
       </v-card-text>
 
       <!-- divider -->

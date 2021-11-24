@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="mx-auto" max-width="500">
-      <v-toolbar flat color="primary accent-4" dark>
+      <v-toolbar flat color="deep-purple darken-3" dark>
         <v-toolbar-title
           >당신의 한끼에 맞는 영화를 추천해드립니다!</v-toolbar-title
         >
@@ -27,7 +27,7 @@
       </v-card-text>
       <v-card-text class="text-end">
         <v-btn icon color="green" @click="getRecommendMovies">
-          <v-icon x-large> mdi-check-circle </v-icon>
+          <v-icon x-large color="deep-purple lighten-5"> mdi-check-circle </v-icon>
         </v-btn>
       </v-card-text>
     </v-card>

@@ -4,12 +4,12 @@
 
     <div id="main">
       <div class="ma-3">
-        <v-btn @click="loadMovies" width="100%" x-large color="primary"
+        <v-btn @click="loadMovies" width="100%" x-large color="deep-purple darken-3"
           >영화추천</v-btn
         >
       </div>
       <div class="ma-3" v-if="!isLogin">
-        <v-btn x-large width="100%" color="primary">로그인</v-btn>
+        <v-btn x-large width="100%" color="deep-purple darken-3">로그인</v-btn>
       </div>
     </div>
   </v-container>
