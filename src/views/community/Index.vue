@@ -66,19 +66,18 @@
           <tr
             v-for="article in article_list"
             :key="article.id"
-            @click="showArticleDetail(article.id)"
           >
-            <td>{{ article.title }}</td>
-            <td class="text-center">
+            <td @click="showArticleDetail(article.id)">{{ article.title }}</td>
+            <td @click="showArticleDetail(article.id)" class="text-center">
               {{ article.movie_title }}
             </td>
-            <td class="text-center">
+            <td @click="showArticleDetail(article.id)" class="text-center">
               {{ article.author }}
             </td>
-            <td class="text-center">
+            <td @click="showArticleDetail(article.id)" class="text-center">
               {{ article.created_at.slice(0, 16) }}
             </td>
-            <td class="text-center">
+            <td @click="showArticleDetail(article.id)" class="text-center">
               {{ article.updated_at.slice(0, 16) }}
             </td>
             <td class="text-center">

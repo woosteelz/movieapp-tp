@@ -13,17 +13,23 @@
               ><h1>{{ movie.title }}</h1>
             </v-card-title>
             <v-card-text class="d-flex align-center flex-wrap body-1">
-              <v-rating
-                :value="movie.vote_average / 2"
-                @input="vote(movie)"
-                v-model="rating"
-                color="warning"
-                background-color="warning"
-                dense
-                class="me-3 flex-shrink-0"
-              ></v-rating>
+              <div>
+                <v-rating
+                  :value="movie.vote_average /2"
+                  half-increments
+                  color="warning"
+                  background-color="warning"
+                  dense
+                  readonly
+                  class="me-3 flex-shrink-0"
+                ></v-rating>
+              </div>
+              <v-icon @click="movie_like(movie)">{{
+                movieLiked ? "mdi-heart" : "mdi-heart-outline"
+              }}</v-icon>
               <span class="text-sm"
-                >{{ movie.vote_average }} |
+                >
+                {{ movieLikeCnt }}명이 좋아합니다 |
                 {{ review_list.length }} reviews</span
               >
             </v-card-text>
@@ -64,7 +70,7 @@
                 sm="3"
                 xs12
                 v-for="actor in actors"
-                :key="actor"
+                :key="actor.id"
               >
                 <div class="ma-5">
                   <div class="text-center">
@@ -94,7 +100,6 @@
                   <v-form
                     class="d-flexalign-items-end"
                     ref="form"
-                    v-model="valid"
                     lazy-validation
                   >
                     <v-text-field
@@ -142,7 +147,7 @@
                   md="6"
                   lg="4"
                 >
-                  <ReviewItem :review="review" :movie="movie" />
+                  <ReviewItem @get-review-list="getReviewlist" :review="review" :movie="movie" />
                 </v-col>
               </v-row>
             </div>
@@ -171,7 +176,7 @@
               <v-card-text>
                 <v-text-field label="Title" v-model.trim="title"></v-text-field>
                 <v-rating
-                  v-model.trim="score"
+                  v-model="score"
                   half-increments
                   color="warning"
                   background-color="warning"
@@ -221,12 +226,14 @@ export default {
       comment: null,
       dialog: null,
       curpagenum: 1,
-      datapage: 10,
+      datapage: 12,
       reviewlist: [],
       reviews: null,
       title: null,
       score: 0,
       rating: 0,
+      movieLiked: null,
+      movieLikeCnt: 0,
     };
   },
   methods: {
@@ -246,6 +253,21 @@ export default {
         .then((res) => {
           console.log(res);
           this.comments = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getMovieLike: function (movie) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/get_movie_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movieLiked = res.data.movie_liked;
+          this.movieLikeCnt = res.data.movie_like_count;
         })
         .catch((err) => {
           console.log(err);
@@ -293,7 +315,7 @@ export default {
         score: this.score,
         content: this.content,
       };
-
+      console.log(this.score)
       if (review.title) {
         axios({
           method: "post",
@@ -304,6 +326,7 @@ export default {
           .then((res) => {
             console.log(res);
             this.getReviewlist(movie);
+            
           })
           .catch((err) => {
             console.log(err);
@@ -360,6 +383,21 @@ export default {
           console.log(err);
         });
     },
+    movie_like: function (movie) {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movieLiked = res.data.movie_liked;
+          this.movieLikeCnt = res.data.movie_like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     // console.log(this.$route.query.pk);
@@ -372,6 +410,8 @@ export default {
         console.log(res);
         this.movie = res.data;
         this.getReviewlist(this.movie);
+        this.getMovieLike(this.movie);
+        
 
         for (let i = 0; i < 20; i++) {
           axios({
