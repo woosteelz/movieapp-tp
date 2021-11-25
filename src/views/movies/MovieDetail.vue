@@ -15,7 +15,7 @@
             <v-card-text class="d-flex align-center flex-wrap body-1">
               <div>
                 <v-rating
-                  :value="movie.vote_average /2"
+                  :value="movie.vote_average / 2"
                   half-increments
                   color="warning"
                   background-color="warning"
@@ -27,8 +27,7 @@
               <v-icon @click="movie_like(movie)">{{
                 movieLiked ? "mdi-heart" : "mdi-heart-outline"
               }}</v-icon>
-              <span class="text-sm"
-                >
+              <span class="text-sm">
                 {{ movieLikeCnt }}명이 좋아합니다 |
                 {{ review_list.length }} reviews</span
               >
@@ -94,7 +93,7 @@
         <v-tab-item>
           <v-container>
             <v-row align="end">
-              <v-col cols="4">
+              <v-col cols="12">
                 <h5>leave your comments</h5>
                 <div>
                   <v-form
@@ -122,13 +121,29 @@
                   </v-form>
                 </div>
               </v-col>
-              <v-col cols="8">
+              <v-col cols="12">
                 <v-card min-height="350">
                   <v-card-text class="scroll">
-                    <h3 v-for="comment in comments" :key="comment.pk">
-                      {{ comment.author }} : {{ comment.content }}
-                    </h3>
-                    <v-spacer></v-spacer>
+                    <div v-if="comments">
+                      <div
+                        v-for="comment in comments"
+                        :key="comment.pk"
+                        class="d-flex"
+                      >
+                        <h4>{{ comment.author }} : {{ comment.content }}</h4>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          icon
+                          @click="deleteComment(comment)"
+                          color="error"
+                        >
+                          <v-icon>mdi-trash-can-outline</v-icon>
+                        </v-btn>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <h3>Not Comment yet...</h3>
+                    </div>
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -147,7 +162,11 @@
                   md="6"
                   lg="4"
                 >
-                  <ReviewItem @get-review-list="getReviewlist" :review="review" :movie="movie" />
+                  <ReviewItem
+                    @get-review-list="getReviewlist"
+                    :review="review"
+                    :movie="movie"
+                  />
                 </v-col>
               </v-row>
             </div>
@@ -315,7 +334,7 @@ export default {
         score: this.score,
         content: this.content,
       };
-      console.log(this.score)
+      console.log(this.score);
       if (review.title) {
         axios({
           method: "post",
@@ -326,7 +345,6 @@ export default {
           .then((res) => {
             console.log(res);
             this.getReviewlist(movie);
-            
           })
           .catch((err) => {
             console.log(err);
@@ -411,7 +429,6 @@ export default {
         this.movie = res.data;
         this.getReviewlist(this.movie);
         this.getMovieLike(this.movie);
-        
 
         for (let i = 0; i < 20; i++) {
           axios({
