@@ -27,11 +27,7 @@
         </div>
       </v-card-text>
     </v-card>
-    <v-form
-      class="d-flexalign-items-end"
-      ref="form"
-      lazy-validation
-    >
+    <v-form class="d-flexalign-items-end" ref="form" lazy-validation>
       <v-text-field
         @keyup.enter="createComment"
         v-model="content"
@@ -40,19 +36,8 @@
       >
       </v-text-field>
       <div class="d-flex justify-start">
-        <v-btn
-          class="mr-4"
-          color="primary"
-          dark
-          outlined
-          @click="gotoBack"
-        >
-          <v-icon
-            dark
-            left
-          >
-            mdi-arrow-left
-          </v-icon>Back
+        <v-btn class="mr-4" color="primary" dark outlined @click="gotoBack">
+          <v-icon dark left> mdi-arrow-left </v-icon>Back
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="primary" class="mr-4" outlined @click="createComment">
@@ -93,7 +78,7 @@ export default {
           console.log(res);
           if (res.data) {
             this.comments = res.data;
-          } 
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -128,15 +113,16 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.comments = res.data;
           this.getComments();
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    gotoBack: function() {
-      this.$router.go(-1)
-    }
+    gotoBack: function () {
+      this.$router.go(-1);
+    },
   },
   created() {
     console.log("created!");
