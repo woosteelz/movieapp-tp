@@ -179,7 +179,7 @@ export default {
     getArticles: function () {
       axios({
         method: "get",
-        url: "http://127.0.0.1:8000/community/articles/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/",
         headers: this.setToken(),
       })
         .then((res) => {
@@ -200,7 +200,7 @@ export default {
       if (article.title) {
         axios({
           method: "post",
-          url: "http://127.0.0.1:8000/community/articles/",
+          url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/",
           data: article,
           headers: this.setToken(),
         })
@@ -226,7 +226,7 @@ export default {
       console.log(this.articleToDelete);
       axios({
         method: "delete",
-        url: `http://127.0.0.1:8000/community/articles/${this.articleToDelete.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/${this.articleToDelete.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -251,7 +251,7 @@ export default {
 
       axios({
         method: "put",
-        url: `http://127.0.0.1:8000/community/articles/${this.edit.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/${this.edit.id}/`,
         data: updatedArticle,
         headers: this.setToken(),
       })
@@ -267,19 +267,23 @@ export default {
         });
     },
     async getArticlelist() {
-      await axios.get("http://127.0.0.1:8000/community/articles/").then(
-        (res) => {
-          this.articlelist = res.data;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      await axios
+        .get(
+          "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/"
+        )
+        .then(
+          (res) => {
+            this.articlelist = res.data;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     },
     getMovies: function () {
       axios({
         method: "get",
-        url: "http://127.0.0.1:8000/movies/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/",
         headers: this.setToken(),
       })
         .then((res) => {
@@ -303,7 +307,7 @@ export default {
     if (localStorage.getItem("jwt")) {
       axios({
         method: "get",
-        url: "http://127.0.0.1:8000/community/articles/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/",
         headers: this.setToken(),
       })
         .then((res) => {

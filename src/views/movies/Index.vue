@@ -64,7 +64,7 @@ export default {
     getMovies: function () {
       axios({
         method: "get",
-        url: "http://127.0.0.1:8000/movies/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/",
         headers: this.setToken(),
       })
         .then((res) => {

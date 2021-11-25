@@ -40,11 +40,13 @@
         <v-card-text>
           <div v-if="comments">
             <div v-for="comment in comments" :key="comment.pk" class="d-flex">
-              <h4>
-                {{ comment.author }} : {{ comment.content }}
-              </h4>
+              <h4>{{ comment.author }} : {{ comment.content }}</h4>
               <v-spacer></v-spacer>
-              <v-btn icon @click="deleteComment(article, comment)" color="error">
+              <v-btn
+                icon
+                @click="deleteComment(article, comment)"
+                color="error"
+              >
                 <v-icon>mdi-trash-can-outline</v-icon>
               </v-btn>
             </div>
@@ -110,7 +112,7 @@ export default {
     getComments: function (article) {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/community/comments/${article.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comments/${article.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -128,7 +130,7 @@ export default {
       if (comment.content) {
         axios({
           method: "post",
-          url: `http://127.0.0.1:8000/community/comment_create/${article.id}/`,
+          url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment_create/${article.id}/`,
           data: comment,
           headers: this.setToken(),
         })
@@ -146,7 +148,7 @@ export default {
     deleteComment: function (article, comment) {
       axios({
         method: "delete",
-        url: `http://127.0.0.1:8000/community/comment/${article.id}/${comment.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment/${article.id}/${comment.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -160,7 +162,7 @@ export default {
     like: function (article) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/community/like/${article.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/like/${article.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {

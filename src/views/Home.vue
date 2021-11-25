@@ -4,7 +4,11 @@
 
     <div id="main">
       <div class="ma-3">
-        <v-btn @click="loadMovies(), goToRecommend()" width="100%" x-large color="deep-purple darken-3"
+        <v-btn
+          @click="loadMovies(), goToRecommend()"
+          width="100%"
+          x-large
+          color="deep-purple darken-3"
           >영화추천</v-btn
         >
       </div>
@@ -37,7 +41,7 @@ export default {
     loadMovies: function () {
       axios({
         method: "get",
-        url: "http://127.0.0.1:8000/movies/load_movies/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/load_movies/",
         headers: this.setToken(),
       })
         .then((res) => {
@@ -49,7 +53,7 @@ export default {
     },
     goToRecommend: function () {
       this.$router.push({ name: "Recommend" });
-    }
+    },
   },
 };
 </script>

@@ -265,7 +265,7 @@ export default {
     getComments: function (movie) {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/comments/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/comments/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -279,7 +279,7 @@ export default {
     getMovieLike: function (movie) {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/get_movie_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/get_movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -298,7 +298,7 @@ export default {
       if (comment.content) {
         axios({
           method: "post",
-          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/comment/`,
+          url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/comment/`,
           data: comment,
           headers: this.setToken(),
         })
@@ -312,7 +312,7 @@ export default {
       }
       this.content = "";
     },
-    
+
     createReview: function (movie) {
       const review = {
         title: this.title,
@@ -323,7 +323,7 @@ export default {
       if (review.title) {
         axios({
           method: "post",
-          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`,
+          url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/reviews/`,
           data: review,
           headers: this.setToken(),
         })
@@ -341,7 +341,9 @@ export default {
     },
     async getReviewlist(movie) {
       await axios
-        .get(`http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`)
+        .get(
+          `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/reviews/`
+        )
         .then(
           (res) => {
             this.reviews = res.data;
@@ -354,7 +356,7 @@ export default {
     like: function (review) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/movies/like/${review.id}/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/like/${review.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -369,7 +371,7 @@ export default {
     movie_like: function (movie) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -384,13 +386,13 @@ export default {
     deleteComment: function (movie, comment) {
       axios({
         method: "delete",
-        url: `http://127.0.0.1:8000/movies/${this.movie.movie_id}/${comment.id}/comment/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.movie.movie_id}/${comment.id}/comment/`,
         headers: this.setToken(),
       })
         .then((res) => {
           console.log(res);
           this.getComments(movie);
-          this.getReviewlist(movie)
+          this.getReviewlist(movie);
         })
         .catch((err) => {
           console.log(err);
@@ -401,7 +403,7 @@ export default {
     // console.log(this.$route.query.pk);
     axios({
       method: "get",
-      url: `http://127.0.0.1:8000/movies/${this.$route.query.pk}/`,
+      url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.$route.query.pk}/`,
       headers: this.setToken(),
     })
       .then((res) => {

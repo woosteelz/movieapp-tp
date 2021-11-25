@@ -120,7 +120,7 @@ export default {
     signup: function () {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/accounts/signup/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/accounts/signup/",
         data: {
           email: this.email,
           nickname: this.nickname,

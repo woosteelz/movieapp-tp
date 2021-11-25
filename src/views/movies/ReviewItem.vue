@@ -129,12 +129,12 @@ export default {
       return config;
     },
     async getReviewlist() {
-      this.$emit("get-review-list", this.movie)
+      this.$emit("get-review-list", this.movie);
     },
     like: function (review) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/movies/${review.id}/like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${review.id}/like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -149,7 +149,7 @@ export default {
     movie_like: function (movie) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -170,13 +170,13 @@ export default {
       console.log(this.reviewToDelete);
       axios({
         method: "delete",
-        url: `http://127.0.0.1:8000/movies/${this.reviewToDelete.id}/review/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.reviewToDelete.id}/review/`,
         headers: this.setToken(),
       })
         .then((res) => {
           console.log(res);
           this.dialogDelete = false;
-          this.getReviewlist(this.movie)
+          this.getReviewlist(this.movie);
         })
         .catch((err) => {
           console.log(err);
@@ -195,7 +195,7 @@ export default {
 
       axios({
         method: "put",
-        url: `http://127.0.0.1:8000/movies/${this.edit.id}/review/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.edit.id}/review/`,
         data: updatedReview,
         headers: this.setToken(),
       })
@@ -209,7 +209,7 @@ export default {
     getReviewLike: function (review) {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/movies/${review.id}/get_review_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${review.id}/get_review_like/`,
         headers: this.setToken(),
       })
         .then((res) => {

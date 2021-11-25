@@ -106,7 +106,7 @@ export default {
     login: function () {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/accounts/api-token-auth/",
+        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/accounts/api-token-auth/",
         data: {
           email: this.email,
           password: this.password,

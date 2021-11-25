@@ -39,8 +39,8 @@
                   movie_liked ? "mdi-heart" : "mdi-heart-outline"
                 }}</v-icon>
                 <span class="text-sm"
-                  >{{ movie_likeCnt }}명이 좋아합니다 |
-                  {{ movie.vote_count }}명 투표</span
+                  >{{ movie_likeCnt }}명이 좋아합니다 | {{ movie.vote_count }}명
+                  투표</span
                 >
               </v-card-text>
               <v-card-text>
@@ -96,7 +96,7 @@ export default {
     getMovieLike: function (movie) {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/get_movie_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/get_movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -111,7 +111,7 @@ export default {
     movie_like: function (movie) {
       axios({
         method: "post",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -128,13 +128,13 @@ export default {
     const select = this.$route.query.select;
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/movies/recommend/select/",
+      url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/recommend/select/",
       data: select,
       headers: this.setToken(),
     }).then((res) => {
       console.log(res);
       this.movies = res.data;
-      this.getMovieLike(this.movie)
+      this.getMovieLike(this.movie);
     });
   },
 };
