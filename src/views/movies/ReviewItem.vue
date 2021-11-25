@@ -7,6 +7,17 @@
         <v-divider></v-divider>
         <v-card-text>
           <v-text-field label="Title" v-model="edit.title"></v-text-field>
+          <div>
+            <v-rating
+              v-model="edit.score"
+              :value="review.score"
+              half-increments
+              color="warning"
+              background-color="warning"
+              dense
+              class="me-3 flex-shrink-0"
+            ></v-rating>
+          </div>
           <v-textarea label="Content" v-model="edit.content"></v-textarea>
         </v-card-text>
         <v-divider></v-divider>
@@ -36,7 +47,7 @@
             @click="dialogDelete = !dialogDelete"
             >Cancel</v-btn
           >
-          <v-btn color="blue darken-1" text @click="deleteReview()">OK</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteReview">OK</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -51,6 +62,7 @@
         color="warning"
         background-color="warning"
         dense
+        half-increments
         readonly
       ></v-rating>
       <span class="ms-3 text-sm">{{ review.like_users }} likes</span>
@@ -94,12 +106,11 @@ export default {
       title: "",
       content: "",
       show: false,
-      liked: false,
+      liked: null,
       likeCnt: 0,
       editDialog: false,
       dialogDelete: false,
       reviewToDelete: null,
-      reviewlist: [],
       edit: {
         title: "",
         content: "",
@@ -115,17 +126,8 @@ export default {
       };
       return config;
     },
-    async getReviewlist(movie) {
-      await axios
-        .get(`http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`)
-        .then(
-          (res) => {
-            this.reviewlist = res.data;
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+    async getReviewlist() {
+      this.$emit("get-review-list", this.movie)
     },
     like: function (review) {
       axios({
@@ -182,6 +184,21 @@ export default {
       })
         .then((res) => {
           console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getReviewLike: function (review) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/movies/${review.id}/get_review_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.liked = res.data.liked;
+          this.likeCnt = res.data.like_count;
         })
         .catch((err) => {
           console.log(err);

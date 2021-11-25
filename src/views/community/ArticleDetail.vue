@@ -15,7 +15,7 @@
       <v-card-text>
         <div v-if="comments">
           <div v-for="comment in comments" :key="comment.pk" class="d-flex">
-            <h4>{{ comment.author }} :{{ comment.content }}</h4>
+            <h4>{{ comment.author }} : {{ comment.content }}</h4>
             <v-spacer></v-spacer>
             <v-btn icon @click="deleteComment(comment)" color="error">
               <v-icon>mdi-trash-can-outline</v-icon>
@@ -34,16 +34,32 @@
       lazy-validation
     >
       <v-text-field
-        @keyup.enter="createComment()"
+        @keyup.enter="createComment"
         v-model="content"
         label="Comment"
         required
       >
       </v-text-field>
-      <div class="d-flex justify-end">
-        <v-btn color="primary" class="mr-4" outlined @click="createComment()">
+      <div class="d-flex justify-start">
+        <v-btn
+          class="mr-4"
+          color="primary"
+          dark
+          outlined
+          @click="gotoBack"
+        >
+          <v-icon
+            dark
+            left
+          >
+            mdi-arrow-left
+          </v-icon>Back
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" class="mr-4" outlined @click="createComment">
           comment
         </v-btn>
+      
       </div>
     </v-form>
   </v-container>
@@ -120,6 +136,9 @@ export default {
           console.log(err);
         });
     },
+    gotoBack: function() {
+      this.$router.go(-1)
+    }
   },
   created() {
     console.log("created!");

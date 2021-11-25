@@ -18,6 +18,7 @@
         label="Keyword"
         clearable
         filled
+        autofocus
       ></v-text-field>
     </div>
     <v-row>

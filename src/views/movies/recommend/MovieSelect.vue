@@ -35,8 +35,11 @@
                   dense
                   class="me-3 flex-shrink-0"
                 ></v-rating>
+                <v-icon @click="movie_like(movie)">{{
+                  movie_liked ? "mdi-heart" : "mdi-heart-outline"
+                }}</v-icon>
                 <span class="text-sm"
-                  >{{ movie.like_users.length }}명이 좋아합니다 |
+                  >{{ movie_likeCnt }}명이 좋아합니다 |
                   {{ movie.vote_count }}명 투표</span
                 >
               </v-card-text>
@@ -70,6 +73,8 @@ export default {
   data() {
     return {
       movies: null,
+      movie_liked: false,
+      movie_likeCnt: 0,
     };
   },
   components: {},
@@ -88,6 +93,36 @@ export default {
         query: { pk: movie_id },
       });
     },
+    getMovieLike: function (movie) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/get_movie_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movieLiked = res.data.movie_liked;
+          this.movieLikeCnt = res.data.movie_like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    movie_like: function (movie) {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movie_liked = res.data.movie_liked;
+          this.movie_likeCnt = res.data.movie_like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     const select = this.$route.query.select;
@@ -99,6 +134,7 @@ export default {
     }).then((res) => {
       console.log(res);
       this.movies = res.data;
+      this.getMovieLike(this.movie)
     });
   },
 };
