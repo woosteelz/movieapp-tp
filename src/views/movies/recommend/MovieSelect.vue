@@ -96,7 +96,7 @@ export default {
     getMovieLike: function (movie) {
       axios({
         method: "get",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/get_movie_like/`,
+        url: `http://3.143.230.89/movies/${movie.movie_id}/get_movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -111,7 +111,7 @@ export default {
     movie_like: function (movie) {
       axios({
         method: "post",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/movie_like/`,
+        url: `http://3.143.230.89/movies/${movie.movie_id}/movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -128,7 +128,7 @@ export default {
     const select = this.$route.query.select;
     axios({
       method: "post",
-      url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/recommend/select/",
+      url: "http://3.143.230.89/movies/recommend/select/",
       data: select,
       headers: this.setToken(),
     }).then((res) => {

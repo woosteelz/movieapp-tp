@@ -134,7 +134,7 @@ export default {
     like: function (review) {
       axios({
         method: "post",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${review.id}/like/`,
+        url: `http://3.143.230.89/movies/${review.id}/like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -149,7 +149,7 @@ export default {
     movie_like: function (movie) {
       axios({
         method: "post",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${movie.movie_id}/movie_like/`,
+        url: `http://3.143.230.89/movies/${movie.movie_id}/movie_like/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -170,7 +170,7 @@ export default {
       console.log(this.reviewToDelete);
       axios({
         method: "delete",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.reviewToDelete.id}/review/`,
+        url: `http://3.143.230.89/movies/${this.reviewToDelete.id}/review/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -195,7 +195,7 @@ export default {
 
       axios({
         method: "put",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${this.edit.id}/review/`,
+        url: `http://3.143.230.89/movies/${this.edit.id}/review/`,
         data: updatedReview,
         headers: this.setToken(),
       })
@@ -209,7 +209,7 @@ export default {
     getReviewLike: function (review) {
       axios({
         method: "get",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/${review.id}/get_review_like/`,
+        url: `http://3.143.230.89/movies/${review.id}/get_review_like/`,
         headers: this.setToken(),
       })
         .then((res) => {

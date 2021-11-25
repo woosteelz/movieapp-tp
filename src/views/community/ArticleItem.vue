@@ -112,7 +112,7 @@ export default {
     getComments: function (article) {
       axios({
         method: "get",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comments/${article.id}/`,
+        url: `http://3.143.230.89/community/comments/${article.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -130,7 +130,7 @@ export default {
       if (comment.content) {
         axios({
           method: "post",
-          url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment_create/${article.id}/`,
+          url: `http://3.143.230.89/community/comment_create/${article.id}/`,
           data: comment,
           headers: this.setToken(),
         })
@@ -148,7 +148,7 @@ export default {
     deleteComment: function (article, comment) {
       axios({
         method: "delete",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment/${article.id}/${comment.id}/`,
+        url: `http://3.143.230.89/community/comment/${article.id}/${comment.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -162,7 +162,7 @@ export default {
     like: function (article) {
       axios({
         method: "post",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/like/${article.id}/`,
+        url: `http://3.143.230.89/community/like/${article.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {

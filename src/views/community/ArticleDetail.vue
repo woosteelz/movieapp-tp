@@ -71,7 +71,7 @@ export default {
     getComments: function () {
       axios({
         method: "get",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comments/${this.article.id}/`,
+        url: `http://3.143.230.89/community/comments/${this.article.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -91,7 +91,7 @@ export default {
       if (comment.content) {
         axios({
           method: "post",
-          url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment_create/${this.article.id}/`,
+          url: `http://3.143.230.89/community/comment_create/${this.article.id}/`,
           data: comment,
           headers: this.setToken(),
         })
@@ -108,7 +108,7 @@ export default {
     deleteComment: function (comment) {
       axios({
         method: "delete",
-        url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/comment/${this.article.id}/${comment.id}/`,
+        url: `http://3.143.230.89/community/comment/${this.article.id}/${comment.id}/`,
         headers: this.setToken(),
       })
         .then((res) => {
@@ -128,7 +128,7 @@ export default {
     console.log("created!");
     axios({
       method: "get",
-      url: `ec2-3-143-230-89.us-east-2.compute.amazonaws.com/community/articles/${this.$route.query.id}`,
+      url: `http://3.143.230.89/community/articles/${this.$route.query.id}`,
       headers: this.setToken(),
     })
       .then((res) => {

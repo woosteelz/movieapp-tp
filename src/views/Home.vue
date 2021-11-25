@@ -41,7 +41,7 @@ export default {
     loadMovies: function () {
       axios({
         method: "get",
-        url: "ec2-3-143-230-89.us-east-2.compute.amazonaws.com/movies/load_movies/",
+        url: "http://3.143.230.89/movies/load_movies/",
         headers: this.setToken(),
       })
         .then((res) => {
