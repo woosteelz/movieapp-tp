@@ -38,14 +38,19 @@
       <div v-show="show">
         <v-divider></v-divider>
         <v-card-text>
-          <div v-for="comment in comments" :key="comment.pk" class="d-flex">
-            <h4>
-              {{ comment.content }}
-            </h4>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="deleteComment(article, comment)" color="error">
-              <v-icon>mdi-trash-can-outline</v-icon>
-            </v-btn>
+          <div v-if="comments">
+            <div v-for="comment in comments" :key="comment.pk" class="d-flex">
+              <h4>
+                {{ comment.author }} : {{ comment.content }}
+              </h4>
+              <v-spacer></v-spacer>
+              <v-btn icon @click="deleteComment(article, comment)" color="error">
+                <v-icon>mdi-trash-can-outline</v-icon>
+              </v-btn>
+            </div>
+          </div>
+          <div v-else>
+            <h3>Not Comment yet...</h3>
           </div>
           <v-form ref="form" lazy-validation>
             <v-text-field

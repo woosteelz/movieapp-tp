@@ -176,6 +176,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.dialogDelete = false;
+          this.getReviewlist(this.movie)
         })
         .catch((err) => {
           console.log(err);
@@ -219,20 +220,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
-  },
-  computed: {
-    startOffset() {
-      return (this.curpagenum - 1) * this.datapage;
-    },
-    endOffset() {
-      return this.startOffset + this.datapage;
-    },
-    numofpage() {
-      return Math.ceil(this.reviewlist.length / this.datapage);
-    },
-    review_list() {
-      return this.reviewlist.slice(this.startOffset, this.endOffset);
     },
   },
 };

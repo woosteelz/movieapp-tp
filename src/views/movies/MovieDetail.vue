@@ -29,7 +29,7 @@
               }}</v-icon>
               <span class="text-sm">
                 {{ movieLikeCnt }}명이 좋아합니다 |
-                {{ review_list.length }} reviews</span
+                {{ reviewList.length }} reviews</span
               >
             </v-card-text>
             <v-card-text>
@@ -156,7 +156,7 @@
             <div>
               <v-row>
                 <v-col
-                  v-for="review in review_list"
+                  v-for="review in reviewList"
                   :key="review.pk"
                   cols="12"
                   md="6"
@@ -246,7 +246,7 @@ export default {
       dialog: null,
       curpagenum: 1,
       datapage: 12,
-      reviewlist: [],
+      reviews: [],
       title: null,
       score: 0,
       rating: 0,
@@ -344,7 +344,7 @@ export default {
         .get(`http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`)
         .then(
           (res) => {
-            this.reviewlist = res.data;
+            this.reviews = res.data;
           },
           (err) => {
             console.log(err);
@@ -390,6 +390,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.getComments(movie);
+          this.getReviewlist(movie)
         })
         .catch((err) => {
           console.log(err);
@@ -436,10 +437,10 @@ export default {
       return this.startOffset + this.datapage;
     },
     numofpage() {
-      return Math.ceil(this.reviewlist.length / this.datapage);
+      return Math.ceil(this.reviews.length / this.datapage);
     },
-    review_list() {
-      return this.reviewlist.slice(this.startOffset, this.endOffset);
+    reviewList() {
+      return this.reviews.slice(this.startOffset, this.endOffset);
     },
   },
 };

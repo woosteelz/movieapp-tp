@@ -30,7 +30,6 @@
     <v-form
       class="d-flexalign-items-end"
       ref="form"
-      v-model="valid"
       lazy-validation
     >
       <v-text-field
@@ -59,7 +58,6 @@
         <v-btn color="primary" class="mr-4" outlined @click="createComment">
           comment
         </v-btn>
-      
       </div>
     </v-form>
   </v-container>
@@ -95,7 +93,7 @@ export default {
           console.log(res);
           if (res.data) {
             this.comments = res.data;
-          }
+          } 
         })
         .catch((err) => {
           console.log(err);
