@@ -1,28 +1,26 @@
 <template>
-  <v-container>
+  <v-container class="d-flex justify-center">
     <!-- ----------------------- -->
     <v-card
       class="auth-card justify-center"
       transparent
-      width=""
+      max-width="344"
       rounded="3"
       height=""
     >
       <!-- title -->
       <v-card-title class="d-flex align-center justify-center py-7">
-        <h2 class="text-2xl font-weight-semibold">Login</h2>
+        <h2 class="text-2xl font-weight-semibold">로그인</h2>
       </v-card-title>
 
       <!-- login form -->
       <v-card-text>
-        <h2>
+        <h3>
           <p class="text-2xl font-weight-semibold text--primary mb-2">
-            Welcome to SSAFYATER! 👋🏻
+            SSAFYATER에 오신걸 환영합니다! 👋🏻
           </p>
-        </h2>
-        <p class="mb-2">
-          Please sign-in to your account and start the adventure
-        </p>
+        </h3>
+        <p class="mb-2">당신의 멋진 식사와 함께할 영화를 찾아보세요!</p>
         <v-form>
           <v-text-field
             v-model="email"
@@ -51,19 +49,28 @@
             </v-checkbox>
 
             <!-- forgot link -->
-            <a href="javascript:void(0)" class="mt-1 white--text"> Forgot Password? </a>
+            <a href="javascript:void(0)" class="mt-1 white--text">
+              비밀번호를 잊으셨나요?
+            </a>
           </div>
 
-          <v-btn block color="grey lighten-2" class="mt-6 black--text" @click.prevent="login">
-            Login
+          <v-btn
+            block
+            color="deep-purple darken-3"
+            class="mt-6 white--text"
+            @click.prevent="login"
+          >
+            로그인
           </v-btn>
         </v-form>
       </v-card-text>
 
       <!-- create new account  -->
       <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
-        <span class="me-2"> New on our platform? </span>
-        <router-link :to="{ name: 'Signup' }" class="white--text"> Create an account </router-link>
+        <span class="me-2"> SSAFYATER가 처음이세요? </span>
+        <router-link :to="{ name: 'Signup' }" class="white--text">
+          계정 만들기
+        </router-link>
       </v-card-text>
 
       <!-- divider -->

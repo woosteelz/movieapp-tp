@@ -79,6 +79,7 @@ export default {
     if (localStorage.getItem("jwt")) {
       this.getMovies();
     } else {
+      alert("영화목록 조회는 로그인이 필요합니다.");
       this.$router.push({ name: "Login" });
     }
   },

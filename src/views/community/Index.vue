@@ -63,12 +63,8 @@
           </v-card>
         </v-dialog>
         <tbody>
-          <tr
-            v-for="article in article_list"
-            :key="article.id"
-            @click="showArticleDetail(article.id)"
-          >
-            <td>{{ article.title }}</td>
+          <tr v-for="article in article_list" :key="article.id">
+            <td @click="showArticleDetail(article.id)">{{ article.title }}</td>
             <td class="text-center">
               {{ article.movie_title }}
             </td>
@@ -82,12 +78,12 @@
               {{ article.updated_at.slice(0, 16) }}
             </td>
             <td class="text-center">
-              <v-icon small class="mr-2" @click="editArticle(article)">
-                mdi-pencil
-              </v-icon>
-              <v-icon small @click="beforeArticle(article)">
-                mdi-delete
-              </v-icon>
+              <v-btn @click="editArticle(article)">
+                <v-icon small class="mr-2"> mdi-pencil </v-icon>
+              </v-btn>
+              <v-btn @click="beforeArticle(article)">
+                <v-icon small> mdi-delete </v-icon>
+              </v-btn>
             </td>
           </tr>
         </tbody>
@@ -318,6 +314,7 @@ export default {
           console.log(err);
         });
     } else {
+      alert("커뮤니티 이용을 위해 로그인해주세요!");
       this.$router.push({ name: "Login" });
     }
   },

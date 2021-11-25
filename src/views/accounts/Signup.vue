@@ -1,105 +1,85 @@
 <template>
-  <v-container width="50%">
-    <div class="auth-wrapper auth-v1">
-      <div class="auth-inner">
-        <v-card class="auth-card">
-          <!-- logo -->
-          <v-card-title class="d-flex align-center justify-center py-7">
-            <h2 class="text-2xl font-weight-semibold">Signup</h2>
-          </v-card-title>
+  <v-container class="d-flex justify-center">
+    <v-card class="auth-card" min-width="344">
+      <!-- logo -->
+      <v-card-title class="d-flex align-center justify-center py-7">
+        <h2 class="text-2xl font-weight-semibold">회원가입</h2>
+      </v-card-title>
 
-          <!-- title -->
-          <v-card-text>
-            <p class="text-2xl font-weight-semibold text--primary mb-2">
-              Welcome to SSAFYATER! 👋🏻
-            </p>
-            <p class="mb-2">Please sign-up to your account and start the adventure!</p>
-          </v-card-text>
+      <!-- title -->
+      <v-card-text>
+        <h3>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">
+            SSAFYATER에 오신걸 환영합니다! 👋🏻
+          </p>
+        </h3>
+        <p class="mb-2">당신의 멋진 식사와 함께할 영화를 찾아보세요!</p>
+      </v-card-text>
 
-          <!-- login form -->
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                v-model="nickname"
-                outlined
-                label="name"
-                placeholder="name"
-                hide-details
-                class="mb-3"
-              ></v-text-field>
+      <!-- login form -->
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            v-model="nickname"
+            outlined
+            label="name"
+            placeholder="name"
+            hide-details
+            class="mb-3"
+          ></v-text-field>
 
-              <v-text-field
-                v-model="email"
-                outlined
-                label="Email"
-                placeholder="example@example.com"
-                hide-details
-                class="mb-3"
-              ></v-text-field>
+          <v-text-field
+            v-model="email"
+            outlined
+            label="Email"
+            placeholder="example@example.com"
+            hide-details
+            class="mb-3"
+          ></v-text-field>
 
-              <v-text-field
-                v-model="password"
-                outlined
-                :type="showPassword ? 'text' : 'password'"
-                label="비밀번호"
-                placeholder="············"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                hide-details
-                class="mb-3"
-                @click:append="showPassword = !showPassword"
-              ></v-text-field>
+          <v-text-field
+            v-model="password"
+            outlined
+            :type="showPassword ? 'text' : 'password'"
+            label="비밀번호"
+            placeholder=""
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            hide-details
+            class="mb-3"
+            @click:append="showPassword = !showPassword"
+          ></v-text-field>
 
-              <v-text-field
-                v-model="passwordConfirm"
-                outlined
-                :type="showConfirm ? 'text' : 'password'"
-                label="비밀번호 확인"
-                placeholder="············"
-                :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                hide-details
-                class="mb-3"
-                @click:append="showConfirm = !showConfirm"
-              ></v-text-field>
+          <v-text-field
+            v-model="passwordConfirm"
+            outlined
+            :type="showConfirm ? 'text' : 'password'"
+            label="비밀번호 확인"
+            placeholder=""
+            :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+            hide-details
+            class="mb-3"
+            @click:append="showConfirm = !showConfirm"
+          ></v-text-field>
 
-              <v-btn block color="grey lighten-2" class="mt-6 black--text" @click="signup">
-                Sign Up
-              </v-btn>
-            </v-form>
-          </v-card-text>
-
-          <!-- create new account  -->
-          <v-card-text
-            class="d-flex align-center justify-center flex-wrap mt-2"
+          <v-btn
+            block
+            color="deep-purple darken-3"
+            class="mt-6 white--text"
+            @click="signup"
           >
-            <span class="me-2"> Already have an account? </span>
-            <router-link :to="{ name: 'Login' }" class="white--text"> Sign in instead </router-link>
-          </v-card-text>
+            가입하기
+          </v-btn>
+        </v-form>
+      </v-card-text>
 
-          <!-- divider -->
-          <v-card-text class="d-flex align-center mt-2">
-            <v-divider></v-divider>
-            <span class="mx-5">or</span>
-            <v-divider></v-divider>
-          </v-card-text>
-
-          <!-- social link -->
-          <v-card-actions class="d-flex justify-center">
-            <v-btn
-              v-for="link in socialLink"
-              :key="link.icon"
-              icon
-              class="ms-1"
-            >
-              <v-icon
-                :color="$vuetify.theme.dark ? link.colorInDark : link.color"
-              >
-                {{ link.icon }}
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </div>
-    </div>
+      <!-- create new account  -->
+      <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+        <span class="me-2"> 이미 계정을 가지고 있나요? </span>
+        <router-link :to="{ name: 'Login' }" class="white--text">
+          로그인하기
+        </router-link>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
