@@ -78,12 +78,13 @@
               {{ article.updated_at.slice(0, 16) }}
             </td>
             <td class="text-center">
-              <v-btn @click="editArticle(article)">
-                <v-icon small class="mr-2"> mdi-pencil </v-icon>
-              </v-btn>
-              <v-btn @click="beforeArticle(article)">
-                <v-icon small> mdi-delete </v-icon>
-              </v-btn>
+              <v-icon @click="editArticle(article)" small class="mr-2">
+                mdi-pencil
+              </v-icon>
+
+              <v-icon @click="beforeArticle(article)" small>
+                mdi-delete
+              </v-icon>
             </td>
           </tr>
         </tbody>
