@@ -8,7 +8,9 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title
-              ><router-link to="/community" class="white--text text-decoration-none"
+              ><router-link
+                to="/community"
+                class="white--text text-decoration-none"
                 >Community</router-link
               ></v-list-item-title
             >
@@ -19,7 +21,9 @@
             <v-icon>mdi-movie-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies" class="white--text text-decoration-none">Movies</router-link>
+            <router-link to="/movies" class="white--text text-decoration-none"
+              >Movies</router-link
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -27,7 +31,11 @@
             <v-icon>mdi-movie-search-outline</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <router-link to="/movies/recommend" class="white--text text-decoration-none">Recommend</router-link>
+            <router-link
+              to="/movies/recommend"
+              class="white--text text-decoration-none"
+              >Recommend</router-link
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item link v-if="isLogin" @click="logout">
@@ -56,7 +64,7 @@
       ></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <img src="@/assets/ssafyater_logo.png" alt="" width="200px">
+        <img src="@/assets/ssafyater_logo.png" alt="" width="200px" />
       </v-toolbar-title>
     </v-app-bar>
 
@@ -107,8 +115,10 @@ export default {
   },
 };
 </script>
-<style>
-/* #all {
-   background: linear-gradient(pink, blue); 
-} */
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Questrial");
+
+.application {
+  font-family: "Questrial";
+}
 </style>

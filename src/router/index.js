@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/accounts/Login.vue'
 import Signup from '@/views/accounts/Signup.vue'
 import Community from '@/views/community/Index.vue'
+import ArticleDetail from '@/views/community/ArticleDetail.vue'
 import Movies from '@/views/movies/Index.vue'
 import MovieDetail from '@/views/movies/MovieDetail.vue'
 import temp from '@/views/community/temp.vue'
@@ -38,6 +39,11 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community
+  },
+  {
+    path: '/community/detail',
+    name: 'ArticleDetail',
+    component: ArticleDetail
   },
   {
     path: '/communitytemp',

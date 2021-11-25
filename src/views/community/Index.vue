@@ -31,7 +31,12 @@
               <v-btn color="primary darken-1" text @click="editDialog = false">
                 닫기
               </v-btn>
-              <v-btn @click.prevent="updateArticle" @click="editDialog = false" color="primary darken-1" text>
+              <v-btn
+                @click.prevent="updateArticle"
+                @click="editDialog = false"
+                color="primary darken-1"
+                text
+              >
                 수정하기
               </v-btn>
             </v-card-actions>
@@ -58,7 +63,11 @@
           </v-card>
         </v-dialog>
         <tbody>
-          <tr v-for="article in article_list" :key="article.id">
+          <tr
+            v-for="article in article_list"
+            :key="article.id"
+            @click="showArticleDetail(article.id)"
+          >
             <td>{{ article.title }}</td>
             <td class="text-center">
               {{ article.movie_title }}
@@ -141,9 +150,7 @@ import axios from "axios";
 
 export default {
   name: "Community",
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       articles: null,
@@ -253,10 +260,13 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.getArticlelist()
+          this.getArticlelist();
         })
         .catch((err) => {
           console.log(err);
+          this.$router.push({
+            name: "Error",
+          });
         });
     },
     async getArticlelist() {
@@ -283,6 +293,14 @@ export default {
           console.log(err);
         });
     },
+    showArticleDetail: function (id) {
+      this.$router.push({
+        name: "ArticleDetail",
+        query: {
+          id: id,
+        },
+      });
+    },
   },
   created: function () {
     if (localStorage.getItem("jwt")) {
@@ -294,7 +312,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.pageArray = res.data;
-          this.getArticlelist()
+          this.getArticlelist();
         })
         .catch((err) => {
           console.log(err);

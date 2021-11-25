@@ -53,7 +53,7 @@
         dense
         readonly
       ></v-rating>
-      <span class="ms-3 text-sm">{{ likeCnt }} likes</span>
+      <span class="ms-3 text-sm">{{ review.like_users }} likes</span>
       <v-spacer></v-spacer>
       {{ review.author }}
     </v-card-text>
