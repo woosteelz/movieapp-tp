@@ -134,7 +134,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                           icon
-                          @click="deleteComment(comment)"
+                          @click="deleteComment(movie, comment)"
                           color="error"
                         >
                           <v-icon>mdi-trash-can-outline</v-icon>
@@ -247,7 +247,6 @@ export default {
       curpagenum: 1,
       datapage: 12,
       reviewlist: [],
-      reviews: null,
       title: null,
       score: 0,
       rating: 0,
@@ -313,21 +312,7 @@ export default {
       }
       this.content = "";
     },
-    getReviews: function (movie) {
-      axios({
-        method: "get",
-        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/reviews/`,
-        headers: this.setToken(),
-      })
-        .then((res) => {
-          console.log(res);
-          this.reviews = res.data;
-          this.pageArray = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    
     createReview: function (movie) {
       const review = {
         title: this.title,
@@ -366,26 +351,6 @@ export default {
           }
         );
     },
-    vote: function (movie) {
-      const vote = {
-        score: this.rating,
-      };
-
-      if (vote.score) {
-        axios({
-          method: "post",
-          url: `http://127.0.0.1:8000/movies/${movie.movie_id}/vote/`,
-          data: vote,
-          headers: this.setToken(),
-        })
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
     like: function (review) {
       axios({
         method: "post",
@@ -416,6 +381,20 @@ export default {
           console.log(err);
         });
     },
+    deleteComment: function (movie, comment) {
+      axios({
+        method: "delete",
+        url: `http://127.0.0.1:8000/movies/${this.movie.movie_id}/${comment.id}/comment/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.getComments(movie);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     // console.log(this.$route.query.pk);
@@ -427,8 +406,8 @@ export default {
       .then((res) => {
         console.log(res);
         this.movie = res.data;
-        this.getReviewlist(this.movie);
         this.getMovieLike(this.movie);
+        this.getReviewlist(this.movie);
 
         for (let i = 0; i < 20; i++) {
           axios({
