@@ -108,6 +108,8 @@ export default {
       show: false,
       liked: null,
       likeCnt: 0,
+      movieLike: null,
+      movieLikeCnt: 0,
       editDialog: false,
       dialogDelete: false,
       reviewToDelete: null,
@@ -144,6 +146,21 @@ export default {
           console.log(err);
         });
     },
+    movie_like: function (movie) {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/movies/${movie.movie_id}/movie_like/`,
+        headers: this.setToken(),
+      })
+        .then((res) => {
+          console.log(res);
+          this.movieLiked = res.data.movie_liked;
+          this.movieLikeCnt = res.data.movie_like_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     beforeReview: function (review) {
       this.dialogDelete = true;
       this.reviewToDelete = review;
@@ -159,7 +176,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.dialogDelete = false;
-          this.getReviewlist(this.movie);
         })
         .catch((err) => {
           console.log(err);
